@@ -1,0 +1,21 @@
+{
+  "name": "grunt-include-replace",
+  "version": "0.0.0",
+  "description": "Grunt task to include files and replace variables. Allows for parameterised includes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "grunt-plugin",
+    "include",
+    "require",
+    "replace",
+    "variable",
+    "parameter",
+    "import"
+  ],
+  "author": "Alan Shaw <alan138@gmail.com>",
+  "license": "MIT"
+}
