@@ -1,4 +1,4 @@
-grunt-include-replace
+grunt-include-replace [![Dependency Status](http://david-dm.org/alanshaw/grunt-include-replace.png)](http://david-dm.org/alanshaw/grunt-include-replace)
 =====================
 
 _Unreleased_ Grunt task to include files and replace variables.
@@ -26,3 +26,5 @@ Result:
 <h1>Hello World!</h1>
 <p>Hello Joe Bloggs!</p>
 ```
+
+WARNING: The task _does not_ check for recursive includes.
