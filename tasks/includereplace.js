@@ -21,23 +21,27 @@ module.exports = function(grunt) {
 		
 		_.defaults(options, {
 			prefix: '@@',
-			variables: {}
+			suffix: '',
+			globals: {}
 		});
 		
 		// Variables available in ALL files
-		var globalVars = options.variables;
+		var globalVars = options.globals;
 		
 		// Names of our variables
 		var globalVarNames = Object.keys(globalVars);
 		
+		// Process lo-dash templates in global variables
+		globalVarNames.forEach(function(globalVarName) {
+			if(Object.prototype.toString.call(globalVars[globalVarName]) == '[object String]') {
+				globalVars[globalVarName] = grunt.template.process(globalVars[globalVarName]);
+			}
+		});
+		
+		grunt.log.debug('Globals', globalVars);
+		
 		// Cached variable regular expressions
 		var globalVarRegExps = {};
-		
-		// The files to process
-		var filePaths = grunt.file.expandFiles(this.file.src);
-		
-		// Destination directory
-		var dest = this.file.dest;
 		
 		function replace(contents, localVars) {
 			
@@ -65,8 +69,8 @@ module.exports = function(grunt) {
 			return contents;
 		}
 		
-		var includeRegExp = new RegExp(options.prefix + 'include\\(["\'](.*?)["\']\\)');
-		var includeParamRegExp = new RegExp(options.prefix + 'include\\(["\'](.*?)["\'], (.*?)\\)');
+		var includeRegExp = new RegExp(options.prefix + 'include\\(["\'](.*?)["\']\\)' + options.suffix);
+		var includeParamRegExp = new RegExp(options.prefix + 'include\\(["\'](.*?)["\'](, (.*?)){0,1}\\)' + options.suffix);
 		
 		function include(contents, workingDir) {
 			
@@ -74,9 +78,11 @@ module.exports = function(grunt) {
 			
 			while(matches) {
 				
+				grunt.log.debug(matches);
+				
 				var match = matches[0];
 				var includePath = matches[1];
-				var localVars= JSON.parse(matches[2]);
+				var localVars = JSON.parse(matches[2]);
 				
 				if(!grunt.file.isPathAbsolute(includePath)) {
 					includePath = path.resolve(workingDir + path.sep + includePath);
@@ -85,7 +91,7 @@ module.exports = function(grunt) {
 				}
 				
 				grunt.log.debug('Including', includePath);
-				grunt.log.debug('Locals', matches[2]);
+				grunt.log.debug('Locals', localVars);
 				
 				var includeContents = grunt.file.read(includePath);
 				
@@ -103,24 +109,54 @@ module.exports = function(grunt) {
 			return contents;
 		}
 		
-		filePaths.forEach(function(filePath) {
+		// The file src globs
+		var fileSrcs = this.file.src;
+		
+		// Allows file srcs to be a string
+		if(Object.prototype.toString.call(fileSrcs) == '[object String]') {
+			fileSrcs = [fileSrcs];
+		}
+		
+		// Destination directory
+		var dest = this.file.dest;
+		
+		fileSrcs.forEach(function(fileSrc) {
 			
-			grunt.log.debug('Processing ' + filePath);
+			grunt.log.debug(fileSrc);
 			
-			// Read file
-			var contents = grunt.file.read(filePath);
+			var filePaths = grunt.file.expandFiles(fileSrc);
 			
-			// Make replacements
-			contents = replace(contents);
+			grunt.log.debug(filePaths);
 			
-			// Process includes
-			contents = include(contents, path.dirname(filePath));
-			
-			grunt.log.debug(contents);
-			
-			//grunt.file.write(dest, contents);
-			
-			grunt.log.ok('Processed ' + filePath);
+			filePaths.forEach(function(filePath) {
+				
+				grunt.log.debug('Processing ' + filePath);
+				
+				// Read file
+				var contents = grunt.file.read(filePath);
+				
+				// Make replacements
+				contents = replace(contents);
+				
+				// Process includes
+				contents = include(contents, path.dirname(filePath));
+				
+				grunt.log.debug(contents);
+				
+				// Get the base dir, which we want to omit from our destination path
+				var baseDir = path.dirname(fileSrc);
+				
+				while(_(baseDir).endsWith('**'))
+					baseDir = path.dirname(baseDir);
+				
+				var savePath = path.normalize(dest + path.sep + filePath.replace(baseDir, ''));
+				
+				grunt.log.debug('Saving to', savePath);
+				
+				grunt.file.write(savePath, contents);
+				
+				grunt.log.ok('Processed ' + filePath);
+			});
 		});
 	});
 };

@@ -6,7 +6,12 @@ module.exports = function(grunt) {
 		
 		includereplace: {
 			dist: {
-				src: ['test/files/test.html'],
+				options: {
+					globals: {
+						test: 'Alan Test'
+					}
+				},
+				src: 'test/files/**/*.html',
 				dest: 'dist/'
 			}
 		},
