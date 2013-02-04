@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 		
 		// Process lo-dash templates in global variables
 		globalVarNames.forEach(function(globalVarName) {
-			if(Object.prototype.toString.call(globalVars[globalVarName]) == '[object String]') {
+			if(_.isString(globalVars[globalVarName])) {
 				globalVars[globalVarName] = grunt.template.process(globalVars[globalVarName]);
 			}
 		});
@@ -113,7 +113,7 @@ module.exports = function(grunt) {
 		var fileSrcs = this.file.src;
 		
 		// Allows file srcs to be a string
-		if(Object.prototype.toString.call(fileSrcs) == '[object String]') {
+		if(_.isString(fileSrcs)) {
 			fileSrcs = [fileSrcs];
 		}
 		
