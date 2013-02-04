@@ -1,2 +1,14 @@
+<!DOCTYPE html>
 @@include('include0.html', {"foo": "bar"})
-@@include('include1.html', {"baz": "boz"})
+<div>
+	@@include('include1.html', {"baz": "boz"})
+</div>
+<p>@@include('include1.html')</p>
+<ul>
+	<li>
+		@@include('include1.html', {
+			"baz": "boz",
+			"boo": ["ya"]
+		})
+	</li>
+</ul>

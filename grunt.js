@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 						test: 'Alan Test'
 					}
 				},
-				src: 'test/files/**/*.html',
+				src: 'test/files/test.html',
 				dest: 'dist/'
 			}
 		},

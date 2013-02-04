@@ -69,20 +69,17 @@ module.exports = function(grunt) {
 			return contents;
 		}
 		
-		var includeRegExp = new RegExp(options.prefix + 'include\\(["\'](.*?)["\']\\)' + options.suffix);
-		var includeParamRegExp = new RegExp(options.prefix + 'include\\(["\'](.*?)["\'](, (.*?)){0,1}\\)' + options.suffix);
+		var includeRegExp = new RegExp(options.prefix + 'include\\(["\'](.*?)["\'](, ([\\s\\S]*?)){0,1}\\)' + options.suffix);
 		
 		function include(contents, workingDir) {
 			
-			var matches = includeParamRegExp.exec(contents);
+			var matches = includeRegExp.exec(contents);
 			
 			while(matches) {
 				
-				grunt.log.debug(matches);
-				
 				var match = matches[0];
 				var includePath = matches[1];
-				var localVars = JSON.parse(matches[2]);
+				var localVars = matches[3] ? JSON.parse(matches[3]) : {};
 				
 				if(!grunt.file.isPathAbsolute(includePath)) {
 					includePath = path.resolve(workingDir + path.sep + includePath);
@@ -103,7 +100,7 @@ module.exports = function(grunt) {
 				
 				contents = contents.replace(match, includeContents);
 				
-				matches = includeParamRegExp.exec(contents);
+				matches = includeRegExp.exec(contents);
 			}
 			
 			return contents;
