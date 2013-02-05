@@ -30,6 +30,19 @@ Result:
 Getting started
 ---------------
 
+Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-include-replace`
+
+Then add this line to your project's `grunt.js` gruntfile:
+
+```javascript
+grunt.loadNpmTasks('grunt-include-replace');
+```
+
+[grunt]: http://gruntjs.com/
+[getting_started]: https://github.com/gruntjs/grunt/wiki/Getting-started
+
+Next, configure the task in your `grunt.js` gruntfile:
+
 ```javascript
 // Add this task to your grunt.initConfig call
 includereplace: {
@@ -53,8 +66,6 @@ includereplace: {
 }
 ```
 
-Run:
-
-	grunt includereplace
+Run the task by invoking `grunt includereplace`
 
 WARNING: The task _does not_ check for recursive includes.
