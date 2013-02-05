@@ -7,7 +7,7 @@
 		"test": "grunt lint includereplace test"
 	},
 	"keywords": [
-		"grunt-plugin",
+		"gruntplugin",
 		"include",
 		"require",
 		"replace",
