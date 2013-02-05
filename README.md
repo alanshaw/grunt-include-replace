@@ -1,9 +1,9 @@
-grunt-include-replace [![Dependency Status](http://david-dm.org/alanshaw/grunt-include-replace.png)](http://david-dm.org/alanshaw/grunt-include-replace)
+grunt-include-replace [![Build Status](https://travis-ci.org/alanshaw/grunt-include-replace.png)](https://travis-ci.org/alanshaw/grunt-include-replace) [![Dependency Status](http://david-dm.org/alanshaw/grunt-include-replace.png)](http://david-dm.org/alanshaw/grunt-include-replace)
 =====================
 
-_Unreleased_ Grunt task to include files and replace variables.
+Grunt task to include files and replace variables.
 
-Will allow parameterised file includes:
+Allows for parameterised file includes:
  
 hello.html
 
@@ -26,5 +26,35 @@ Result:
 <h1>Hello World!</h1>
 <p>Hello Joe Bloggs!</p>
 ```
+
+Getting started
+---------------
+
+```javascript
+// Add this task to your grunt.initConfig call
+includereplace: {
+	dist: {
+		options: {
+			// Global variables available in all files
+			globals: {
+				var1: 'one',
+				var2: 'two',
+				var3: 'three'
+			},
+			// Optional variable prefix & suffix, defaults as shown
+			prefix: '@@',
+			suffix: ''
+		},
+		// Files to perform replacements and includes with
+		src: '*.html',
+		// Destinaion directory to copy files to
+		dest: 'dist/'
+	}
+}
+```
+
+Run:
+
+	grunt includereplace
 
 WARNING: The task _does not_ check for recursive includes.

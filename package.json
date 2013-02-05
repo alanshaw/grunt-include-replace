@@ -1,21 +1,40 @@
 {
-  "name": "grunt-include-replace",
-  "version": "0.0.0",
-  "description": "Grunt task to include files and replace variables. Allows for parameterised includes.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": "",
-  "keywords": [
-    "grunt-plugin",
-    "include",
-    "require",
-    "replace",
-    "variable",
-    "parameter",
-    "import"
-  ],
-  "author": "Alan Shaw <alan138@gmail.com>",
-  "license": "MIT"
+	"name": "grunt-include-replace",
+	"version": "0.0.0-beta",
+	"description": "Grunt task to include files and replace variables. Allows for parameterised includes.",
+	"main": "grunt.js",
+	"scripts": {
+		"test": "lint includereplace test"
+	},
+	"keywords": [
+		"grunt-plugin",
+		"include",
+		"require",
+		"replace",
+		"variable",
+		"parameter",
+		"import"
+	],
+	"author": {
+		"name": "Alan Shaw",
+		"email": "alan138@gmail.com"
+	},
+	"homepage": "https://github.com/alanshaw/grunt-include-replace",
+	"licenses": [{
+		"type": "MIT",
+		"url": "https://github.com/alanshaw/grunt-include-replace/blob/master/LICENSE-MIT"
+	}],
+	"devDependencies": {
+		"grunt": "~0.3.17"
+	},
+	"bugs": {
+		"url": "https://github.com/alanshaw/grunt-include-replace/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com:alanshaw/grunt-include-replace.git"
+	},
+	"engines": {
+		"node": "~0.8.18"
+	}
 }

@@ -31,10 +31,12 @@ module.exports = function(grunt) {
 		// Names of our variables
 		var globalVarNames = Object.keys(globalVars);
 		
-		// Process lo-dash templates in global variables
+		// Process lo-dash templates (for strings) in global variables and JSON.stringify the rest
 		globalVarNames.forEach(function(globalVarName) {
 			if(_.isString(globalVars[globalVarName])) {
 				globalVars[globalVarName] = grunt.template.process(globalVars[globalVarName]);
+			} else {
+				globalVars[globalVarName] = JSON.stringify(globalVars[globalVarName]);
 			}
 		});
 		
@@ -53,7 +55,14 @@ module.exports = function(grunt) {
 			// Replace local vars
 			varNames.forEach(function(varName) {
 				
-				varRegExps[varName] = varRegExps[varName] || new RegExp(options.prefix + varName, 'g');
+				// Process lo-dash templates (for strings) in global variables and JSON.stringify the rest
+				if(_.isString(localVars[varName])) {
+					localVars[varName] = grunt.template.process(localVars[varName]);
+				} else {
+					localVars[varName] = JSON.stringify(localVars[varName]);
+				}
+				
+				varRegExps[varName] = varRegExps[varName] || new RegExp(options.prefix + varName + options.suffix, 'g');
 				
 				contents = contents.replace(varRegExps[varName], localVars[varName]);
 			});
@@ -61,7 +70,7 @@ module.exports = function(grunt) {
 			// Replace global variables
 			globalVarNames.forEach(function(globalVarName) {
 				
-				globalVarRegExps[globalVarName] = globalVarRegExps[globalVarName] || new RegExp(options.prefix + globalVarName, 'g');
+				globalVarRegExps[globalVarName] = globalVarRegExps[globalVarName] || new RegExp(options.prefix + globalVarName + options.suffix, 'g');
 				
 				contents = contents.replace(globalVarRegExps[globalVarName], globalVars[globalVarName]);
 			});
@@ -108,6 +117,11 @@ module.exports = function(grunt) {
 		
 		// The file src globs
 		var fileSrcs = this.file.src;
+		
+		if(!fileSrcs) {
+			grunt.log.ok('No files to process');
+			return;
+		}
 		
 		// Allows file srcs to be a string
 		if(_.isString(fileSrcs)) {

@@ -1,0 +1,2 @@
+Look ma, no local vars!
+Yes dear.
