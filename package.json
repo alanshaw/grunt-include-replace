@@ -4,7 +4,7 @@
 	"description": "Grunt task to include files and replace variables. Allows for parameterised includes.",
 	"main": "grunt.js",
 	"scripts": {
-		"test": "lint includereplace test"
+		"test": "grunt lint includereplace test"
 	},
 	"keywords": [
 		"grunt-plugin",
@@ -35,6 +35,6 @@
 		"url": "git://github.com:alanshaw/grunt-include-replace.git"
 	},
 	"engines": {
-		"node": "~0.8.18"
+		"node": "~0.8.15"
 	}
 }
