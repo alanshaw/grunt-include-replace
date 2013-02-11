@@ -1,4 +1,4 @@
-grunt-include-replace [![Build Status](https://travis-ci.org/alanshaw/grunt-include-replace.png)](https://travis-ci.org/alanshaw/grunt-include-replace) [![Dependency Status](http://david-dm.org/alanshaw/grunt-include-replace.png)](http://david-dm.org/alanshaw/grunt-include-replace)
+grunt-include-replace [![Build Status](https://travis-ci.org/alanshaw/grunt-include-replace.png)](https://travis-ci.org/alanshaw/grunt-include-replace) [![Dependency Status](https://david-dm.org/alanshaw/grunt-include-replace.png)](https://david-dm.org/alanshaw/grunt-include-replace)
 =====================
 
 Grunt task to include files and replace variables.
