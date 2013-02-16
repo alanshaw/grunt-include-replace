@@ -32,9 +32,10 @@ Getting started
 
 Install [Node.js](http://nodejs.org/) and [Grunt](http://gruntjs.com/).
 
-Install this grunt plugin next to your project's [gruntfile.js][getting_started] with `npm install grunt-include-replace`. Alternatively, add `grunt-include-replace` to your devDependencies in your project `package.json` and install with `npm install`.
+Install grunt-include-replace:
 
-[getting_started]: https://github.com/gruntjs/grunt/wiki/Getting-started
+	cd /path/to/your/project
+	npm install grunt-include-replace
 
 _Note: as of version 0.1.0 this plugin requires grunt 0.4. Install version 0.0.0-beta for grunt 0.3 support._
 
