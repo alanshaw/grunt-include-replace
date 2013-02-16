@@ -29,6 +29,9 @@
 		"grunt-contrib-nodeunit": "0.1.2rc6",
 		"grunt-contrib-jshint": "0.1.1rc6"
 	},
+	"peerDependencies": {
+		"grunt": "~0.4.0rc8"
+	},
 	"bugs": {
 		"url": "https://github.com/alanshaw/grunt-include-replace/issues"
 	},
