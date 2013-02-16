@@ -10,16 +10,14 @@ module.exports = function(grunt) {
 	
 	"use strict";
 	
-	var _ = grunt.utils._;
+	var _ = grunt.util._;
 	
 	var path = require('path');
 	var fs = require('fs');
 	
 	grunt.registerMultiTask('includereplace', 'Include files and replace variables', function() {
 		
-		var options = this.data.options || {};
-		
-		_.defaults(options, {
+		var options = this.options({
 			prefix: '@@',
 			suffix: '',
 			globals: {}
@@ -31,10 +29,9 @@ module.exports = function(grunt) {
 		// Names of our variables
 		var globalVarNames = Object.keys(globalVars);
 		
-		// Process lo-dash templates (for strings) in global variables and JSON.stringify the rest
 		globalVarNames.forEach(function(globalVarName) {
 			if(_.isString(globalVars[globalVarName])) {
-				globalVars[globalVarName] = grunt.template.process(globalVars[globalVarName]);
+				globalVars[globalVarName] = globalVars[globalVarName];
 			} else {
 				globalVars[globalVarName] = JSON.stringify(globalVars[globalVarName]);
 			}
@@ -115,58 +112,40 @@ module.exports = function(grunt) {
 			return contents;
 		}
 		
-		// The file src globs
-		var fileSrcs = this.file.src;
-		
-		if(!fileSrcs) {
-			grunt.log.ok('No files to process');
-			return;
-		}
-		
-		// Allows file srcs to be a string
-		if(_.isString(fileSrcs)) {
-			fileSrcs = [fileSrcs];
-		}
-		
-		// Destination directory
-		var dest = this.file.dest;
-		
-		fileSrcs.forEach(function(fileSrc) {
+		this.files.forEach(function(srcDest) {
 			
-			grunt.log.debug(fileSrc);
+			grunt.log.debug('Processing glob ' + srcDest.orig.src);
 			
-			var filePaths = grunt.file.expandFiles(fileSrc);
+			// Get the base dir, which we want to omit from our destination path
+			var baseDir = path.dirname(srcDest.orig.src);
 			
-			grunt.log.debug(filePaths);
+			while(_(baseDir).endsWith('**'))
+				baseDir = path.dirname(baseDir);
 			
-			filePaths.forEach(function(filePath) {
+			grunt.log.debug('Base dir ' + baseDir);
+			
+			srcDest.src.forEach(function(src) {
 				
-				grunt.log.debug('Processing ' + filePath);
+				grunt.log.debug('Processing ' + src);
 				
 				// Read file
-				var contents = grunt.file.read(filePath);
+				var contents = grunt.file.read(src);
 				
 				// Make replacements
 				contents = replace(contents);
 				
 				// Process includes
-				contents = include(contents, path.dirname(filePath));
+				contents = include(contents, path.dirname(src));
 				
 				grunt.log.debug(contents);
 				
-				// Get the base dir, which we want to omit from our destination path
-				var baseDir = path.dirname(fileSrc);
+				var dest = path.normalize(srcDest.dest + path.sep + src.replace(baseDir, ''));
 				
-				while(_(baseDir).endsWith('**'))
-					baseDir = path.dirname(baseDir);
+				grunt.log.debug('Saving to', dest);
 				
-				var savePath = path.normalize(dest + path.sep + filePath.replace(baseDir, ''));
+				grunt.file.write(dest, contents);
 				
-				grunt.log.debug('Saving to', savePath);
-				
-				grunt.file.write(savePath, contents);
-				
-				grunt.log.ok('Processed ' + filePath);
+				grunt.log.ok('Processed ' + src);
 			});
 		});
 	});

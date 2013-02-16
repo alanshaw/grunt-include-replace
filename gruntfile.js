@@ -5,6 +5,10 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		
 		includereplace: {
+			everything: {
+				src: 'test/files/**/*.html',
+				dest: 'dist/everything/'
+			},
 			parameterless: {
 				src: 'test/files/parameterless/test.txt',
 				dest: 'dist/parameterless/'
@@ -53,34 +57,29 @@ module.exports = function(grunt) {
 				dest: 'dist/prefixsuffix/'
 			}
 			// TODO: Test me:
+			// lodash templates in global and local vars
 			// Path tests
 			// vars in params
 			// compact, full and list format
 			// Multiline param
 		},
 		
-		test: {
+		nodeunit: {
 			files: ['test/*.js']
-		},
-		
-		lint: {
-			files: ['grunt.js', 'tasks/*.js', 'test/*.js']
-		},
-		
-		watch: {
-			files: '<config:lint.files>',
-			tasks: 'default'
 		},
 		
 		jshint: {
 			options: {
 				node: true,
 				es5: true
-			}
+			},
+			files: ['grunt.js', 'tasks/*.js', 'test/*.js']
 		}
 	});
 	
+	grunt.loadNpmTasks('grunt-contrib-nodeunit');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadTasks('tasks');
 	
-	grunt.registerTask('default', 'lint includereplace test');
+	grunt.registerTask('default', ['jshint', 'includereplace', 'nodeunit']);
 };
