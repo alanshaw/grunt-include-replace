@@ -114,38 +114,43 @@ module.exports = function(grunt) {
 		
 		this.files.forEach(function(srcDest) {
 			
-			grunt.log.debug('Processing glob ' + srcDest.orig.src);
-			
-			// Get the base dir, which we want to omit from our destination path
-			var baseDir = path.dirname(srcDest.orig.src);
-			
-			while(_(baseDir).endsWith('**'))
-				baseDir = path.dirname(baseDir);
-			
-			grunt.log.debug('Base dir ' + baseDir);
-			
-			srcDest.src.forEach(function(src) {
+			srcDest.orig.src.forEach(function(origSrc) {
 				
-				grunt.log.debug('Processing ' + src);
+				grunt.log.debug('Processing glob ' + origSrc);
 				
-				// Read file
-				var contents = grunt.file.read(src);
+				// Get the base dir, which we want to omit from our destination path
+				var baseDir = path.dirname(origSrc);
 				
-				// Make replacements
-				contents = replace(contents);
+				while(_(baseDir).endsWith('**'))
+					baseDir = path.dirname(baseDir);
 				
-				// Process includes
-				contents = include(contents, path.dirname(src));
+				grunt.log.debug('Base dir ' + baseDir);
 				
-				grunt.log.debug(contents);
-				
-				var dest = path.normalize(srcDest.dest + path.sep + src.replace(baseDir, ''));
-				
-				grunt.log.debug('Saving to', dest);
-				
-				grunt.file.write(dest, contents);
-				
-				grunt.log.ok('Processed ' + src);
+				grunt.file.expand(origSrc).forEach(function(src) {
+					
+					if(!grunt.file.isFile(src)) return;
+					
+					grunt.log.debug('Processing ' + src);
+					
+					// Read file
+					var contents = grunt.file.read(src);
+					
+					// Make replacements
+					contents = replace(contents);
+					
+					// Process includes
+					contents = include(contents, path.dirname(src));
+					
+					grunt.log.debug(contents);
+					
+					var dest = path.normalize(srcDest.dest + path.sep + src.replace(baseDir, ''));
+					
+					grunt.log.debug('Saving to', dest);
+					
+					grunt.file.write(dest, contents);
+					
+					grunt.log.ok('Processed ' + src);
+				});
 			});
 		});
 	});

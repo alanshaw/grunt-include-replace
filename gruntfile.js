@@ -55,12 +55,28 @@ module.exports = function(grunt) {
 				},
 				src: 'test/files/prefixsuffix/test.html',
 				dest: 'dist/prefixsuffix/'
+			},
+			multisrc: {
+				options: {
+					prefix: '"@@',
+					suffix: '"'
+				},
+				src: ['test/files/multisrc/js/*.js', 'test/files/multisrc/lib/**/*.js'],
+				dest: 'dist/multisrc/scripts'
+			},
+			multisrcdest: {
+				options: {
+					globals: {foo: 'bar'}
+				},
+				files: {
+					'dist/multisrcdest/js': 'test/files/multisrcdest/js/**/*.js',
+					'dist/multisrcdest/html': 'test/files/multisrcdest/html/*.html',
+					'dist/multisrcdest/css': 'test/files/multisrcdest/css/*.css'
+				}
 			}
 			// TODO: Test me:
 			// lodash templates in global and local vars
-			// Path tests
 			// vars in params
-			// compact, full and list format
 			// Multiline param
 		},
 		

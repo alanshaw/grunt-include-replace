@@ -69,6 +69,22 @@ includereplace: {
 }
 ```
 
+...or in "list" format:
+
+```javascript
+includereplace: {
+	dist: {
+		options: {
+			globals: {foo: 'bar'}
+		},
+		files: {
+			'dist/js': 'js/**/*.js',
+			'dist/css': 'css/*.css'
+		}
+	}
+}
+```
+
 Run the task by invoking `grunt includereplace`
 
 WARNING: The task _does not_ check for recursive includes.
