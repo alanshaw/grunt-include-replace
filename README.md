@@ -39,13 +39,13 @@ Install grunt-include-replace:
 
 _Note: as of version 0.1.0 this plugin requires grunt 0.4. Install version 0.0.0-beta for grunt 0.3 support._
 
-Then add this line to your project's `gruntfile.js`:
+Then add this line to your project's `Gruntfile.js`:
 
 ```javascript
 grunt.loadNpmTasks('grunt-include-replace');
 ```
 
-Next, configure the task in your `gruntfile.js`:
+Next, configure the task in your `Gruntfile.js`:
 
 ```javascript
 // Add this task to your grunt.initConfig call
