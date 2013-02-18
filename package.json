@@ -1,6 +1,6 @@
 {
 	"name": "grunt-include-replace",
-	"version": "0.1.0rc0",
+	"version": "0.1.0",
 	"description": "Grunt task to include files and replace variables. Allows for parameterised includes.",
 	"main": "Gruntfile.js",
 	"scripts": {
@@ -25,12 +25,12 @@
 		"url": "https://github.com/alanshaw/grunt-include-replace/blob/master/LICENSE-MIT"
 	}],
 	"devDependencies": {
-		"grunt": "~0.4.0rc8",
-		"grunt-contrib-nodeunit": "0.1.2rc6",
-		"grunt-contrib-jshint": "0.1.1rc6"
+		"grunt": "~0.4.0",
+		"grunt-contrib-nodeunit": "0.1.2",
+		"grunt-contrib-jshint": "0.1.1"
 	},
 	"peerDependencies": {
-		"grunt": "~0.4.0rc8"
+		"grunt": "~0.4.0"
 	},
 	"bugs": {
 		"url": "https://github.com/alanshaw/grunt-include-replace/issues"
