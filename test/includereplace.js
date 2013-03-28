@@ -20,7 +20,8 @@
 				'multisrcdest/css/normalize.css',
 				'multisrcdest/html/index.html',
 				'multisrcdest/js/main.js',
-				'multisrcdest/js/vendor/jquery.js'
+				'multisrcdest/js/vendor/jquery.js',
+				'regexp/index.html'
 			];
 			
 			// Files not expected to exist after execution

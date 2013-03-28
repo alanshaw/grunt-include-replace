@@ -75,7 +75,7 @@ module.exports = function(grunt) {
 			return contents;
 		}
 		
-		var includeRegExp = new RegExp(options.prefix + 'include\\(["\'](.*?)["\'](, ([\\s\\S]*?)){0,1}\\)' + options.suffix);
+		var includeRegExp = new RegExp(options.prefix + 'include\\(\\s*["\'](.*?)["\'](,\\s*({[\\s\\S]*?})){0,1}\\s*\\)' + options.suffix);
 		
 		function include(contents, workingDir) {
 			
@@ -85,6 +85,7 @@ module.exports = function(grunt) {
 				
 				var match = matches[0];
 				var includePath = matches[1];
+				console.log(matches[3]);
 				var localVars = matches[3] ? JSON.parse(matches[3]) : {};
 				
 				if(!grunt.file.isPathAbsolute(includePath)) {

@@ -73,6 +73,10 @@ module.exports = function(grunt) {
 					'dist/multisrcdest/html': 'test/files/multisrcdest/html/*.html',
 					'dist/multisrcdest/css': 'test/files/multisrcdest/css/*.css'
 				}
+			},
+			regexp: {
+				src: 'test/files/regexp/index.html',
+				dest: 'dist/regexp/'
 			}
 			// TODO: Test me:
 			// lodash templates in global and local vars
