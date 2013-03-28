@@ -85,7 +85,6 @@ module.exports = function(grunt) {
 				
 				var match = matches[0];
 				var includePath = matches[1];
-				console.log(matches[3]);
 				var localVars = matches[3] ? JSON.parse(matches[3]) : {};
 				
 				if(!grunt.file.isPathAbsolute(includePath)) {
