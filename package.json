@@ -40,6 +40,6 @@
 		"url": "git://github.com:alanshaw/grunt-include-replace.git"
 	},
 	"engines": {
-		"node": "~0.8.15"
+		"node": "~0.8.15 || ~0.10.0"
 	}
 }
