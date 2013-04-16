@@ -77,6 +77,16 @@ module.exports = function(grunt) {
 			regexp: {
 				src: 'test/files/regexp/index.html',
 				dest: 'dist/regexp/'
+			},
+			process: {
+				options: {
+					processIncludeContents: function(contents, localVars) {
+						var indent = Array((parseInt(localVars.indent, 10)) + 1).join(" ");
+            				return contents.replace(/^/gm, indent);
+					}
+				},
+				src: 'test/files/process/test.coffee',
+				dest: 'dist/process/'
 			}
 			// TODO: Test me:
 			// lodash templates in global and local vars
