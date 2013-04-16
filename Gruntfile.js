@@ -82,7 +82,7 @@ module.exports = function(grunt) {
 				options: {
 					processIncludeContents: function(contents, localVars) {
 						var indent = Array((parseInt(localVars.indent, 10)) + 1).join(" ");
-            				return contents.replace(/^/gm, indent);
+						return contents.replace(/^/gm, indent);
 					}
 				},
 				src: 'test/files/process/test.coffee',
