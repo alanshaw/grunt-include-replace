@@ -1,4 +1,3 @@
-class Module
+define [], ->
 
-  sayHello: (name) ->
-    @@include('included.coffee', {"indent": "4"})
+@@include('included.coffee', {"indent": "2"}))

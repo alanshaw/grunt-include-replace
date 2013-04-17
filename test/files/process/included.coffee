@@ -1,2 +1,3 @@
-console.log name
-"Hello, #{name}"
+class Module
+
+  constructor: (@name) ->

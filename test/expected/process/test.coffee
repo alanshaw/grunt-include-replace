@@ -1,5 +1,5 @@
-class Module
+define [], ->
 
-  sayHello: (name) ->
-    console.log name
-    "Hello, #{name}"
+  class Module
+  
+    constructor: (@name) ->)
