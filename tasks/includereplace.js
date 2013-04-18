@@ -103,6 +103,9 @@ module.exports = function(grunt) {
 				
 				// Process includes
 				includeContents = include(includeContents, path.dirname(includePath));
+				if (options.processIncludeContents && typeof options.processIncludeContents === 'function') {
+					includeContents = options.processIncludeContents(includeContents, localVars);
+				}
 				
 				contents = contents.replace(match, includeContents);
 				
