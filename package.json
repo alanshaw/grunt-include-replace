@@ -13,7 +13,8 @@
 		"replace",
 		"variable",
 		"parameter",
-		"import"
+		"import",
+		"template"
 	],
 	"author": {
 		"name": "Alan Shaw",
