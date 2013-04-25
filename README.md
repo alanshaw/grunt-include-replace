@@ -60,11 +60,13 @@ includereplace: {
 			},
 			// Optional variable prefix & suffix, defaults as shown
 			prefix: '@@',
-			suffix: ''
+			suffix: '',
+			//Optional - directory where includes will be resolved
+			includesDir: 'global_includes/'
 		},
 		// Files to perform replacements and includes with
 		src: '*.html',
-		// Destinaion directory to copy files to
+		// Destination directory to copy files to
 		dest: 'dist/'
 	}
 }
