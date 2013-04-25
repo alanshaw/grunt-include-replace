@@ -78,6 +78,16 @@ module.exports = function(grunt) {
 				src: 'test/files/regexp/index.html',
 				dest: 'dist/regexp/'
 			},
+
+			includesDir: {
+				src: 'test/files/includes/test.txt',
+				dest: 'dist/includes/',
+				options : {
+					//The base path where includes will be resolved
+					includesDir : 'test/global_includes/'
+				}
+			},
+
 			process: {
 				options: {
 					processIncludeContents: function(contents, localVars) {
