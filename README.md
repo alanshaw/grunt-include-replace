@@ -61,7 +61,7 @@ includereplace: {
 			// Optional variable prefix & suffix, defaults as shown
 			prefix: '@@',
 			suffix: '',
-			//Optional - directory where includes will be resolved
+			//Optional - directory where includes will be resolved, default relative to including file
 			includesDir: 'global_includes/'
 		},
 		// Files to perform replacements and includes with
