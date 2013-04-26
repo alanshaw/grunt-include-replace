@@ -96,5 +96,5 @@ Release History
 ---------------
 
  * 2013-04-26   v0.3.0   Added new option includesDir - if set all includes resolved relative to that directory
- * 2013-04-19   v0.2.0   Added option processIncludeContents - a function that allows you to alter included file contents as they are processed
+ * 2013-04-19   v0.2.0   Added option processIncludeContents - a function that allows you to alter included file contents
  * 2013-02-18   v0.1.0   Grunt 0.4.x support
