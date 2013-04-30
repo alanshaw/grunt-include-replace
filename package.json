@@ -1,45 +1,48 @@
 {
-	"name": "grunt-include-replace",
-	"version": "0.2.0",
-	"description": "Grunt task to include files and replace variables. Allows for parameterised includes.",
-	"main": "Gruntfile.js",
-	"scripts": {
-		"test": "grunt jshint includereplace nodeunit"
-	},
-	"keywords": [
-		"gruntplugin",
-		"include",
-		"require",
-		"replace",
-		"variable",
-		"parameter",
-		"import"
-	],
-	"author": {
-		"name": "Alan Shaw",
-		"email": "alan138@gmail.com"
-	},
-	"homepage": "https://github.com/alanshaw/grunt-include-replace",
-	"licenses": [{
-		"type": "MIT",
-		"url": "https://github.com/alanshaw/grunt-include-replace/blob/master/LICENSE-MIT"
-	}],
-	"devDependencies": {
-		"grunt": "~0.4.0",
-		"grunt-contrib-nodeunit": "~0.1.2",
-		"grunt-contrib-jshint": "~0.4.1"
-	},
-	"peerDependencies": {
-		"grunt": "~0.4.0"
-	},
-	"bugs": {
-		"url": "https://github.com/alanshaw/grunt-include-replace/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com:alanshaw/grunt-include-replace.git"
-	},
-	"engines": {
-		"node": "~0.8.15 || ~0.10.0"
-	}
+  "name": "grunt-include-replace",
+  "version": "0.2.0",
+  "description": "Grunt task to include files and replace variables. Allows for parameterised includes.",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "grunt jshint includereplace nodeunit"
+  },
+  "keywords": [
+    "gruntplugin",
+    "include",
+    "require",
+    "replace",
+    "variable",
+    "parameter",
+    "import"
+  ],
+  "author": {
+    "name": "Alan Shaw",
+    "email": "alan138@gmail.com"
+  },
+  "homepage": "https://github.com/alanshaw/grunt-include-replace",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/alanshaw/grunt-include-replace/blob/master/LICENSE-MIT"
+    }
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-jshint": "~0.4.1",
+    "grunt-contrib-clean": "~0.4.1"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.0"
+  },
+  "bugs": {
+    "url": "https://github.com/alanshaw/grunt-include-replace/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:alanshaw/grunt-include-replace.git"
+  },
+  "engines": {
+    "node": "~0.8.15 || ~0.10.0"
+  }
 }

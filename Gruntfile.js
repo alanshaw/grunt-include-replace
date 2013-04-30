@@ -87,6 +87,11 @@ module.exports = function(grunt) {
 				},
 				src: 'test/files/process/test.coffee',
 				dest: 'dist/process/'
+			},
+			inhtml: {
+				files: {
+					'dist/': '*.html'
+				}
 			}
 			// TODO: Test me:
 			// lodash templates in global and local vars
@@ -104,11 +109,16 @@ module.exports = function(grunt) {
 				es5: true
 			},
 			files: ['grunt.js', 'tasks/*.js', 'test/*.js']
+		},
+		
+		clean: {
+			dist: 'dist/*'
 		}
 	});
 	
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadTasks('tasks');
 	
 	grunt.registerTask('default', ['jshint', 'includereplace', 'nodeunit']);

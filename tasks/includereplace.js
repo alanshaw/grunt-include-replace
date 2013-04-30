@@ -146,7 +146,8 @@ module.exports = function(grunt) {
 					
 					grunt.log.debug(contents);
 					
-					var dest = path.normalize(srcDest.dest + path.sep + src.replace(baseDir, ''));
+					var filename = (baseDir == '.') ? src : src.replace(baseDir, '');
+					var dest = path.normalize(srcDest.dest + path.sep + filename);
 					
 					grunt.log.debug('Saving to', dest);
 					
