@@ -9,6 +9,7 @@
 			
 			var expectations = [
 				'globals/test.html',
+				'includes/test.txt',
 				'parameterless/test.txt',
 				'parameters/test.html',
 				'types/test.js',

@@ -1,6 +1,6 @@
 {
   "name": "grunt-include-replace",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Grunt task to include files and replace variables. Allows for parameterised includes.",
   "main": "Gruntfile.js",
   "scripts": {
@@ -13,7 +13,8 @@
     "replace",
     "variable",
     "parameter",
-    "import"
+    "import",
+    "template"
   ],
   "author": {
     "name": "Alan Shaw",

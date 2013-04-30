@@ -20,7 +20,8 @@ module.exports = function(grunt) {
 		var options = this.options({
 			prefix: '@@',
 			suffix: '',
-			globals: {}
+			globals: {},
+			includesDir: ''
 		});
 		
 		// Variables available in ALL files
@@ -88,14 +89,18 @@ module.exports = function(grunt) {
 				var localVars = matches[3] ? JSON.parse(matches[3]) : {};
 				
 				if(!grunt.file.isPathAbsolute(includePath)) {
-					includePath = path.resolve(workingDir + path.sep + includePath);
+					includePath = path.resolve((options.includesDir ? options.includesDir : workingDir) + path.sep + includePath);
 				} else {
+					if(options.includesDir){
+						grunt.log.debug('includesDir works only with relative paths. Could not apply includesDir to ' + includePath);
+					}
 					includePath = path.resolve(includePath);
 				}
 				
 				grunt.log.debug('Including', includePath);
 				grunt.log.debug('Locals', localVars);
 				
+
 				var includeContents = grunt.file.read(includePath);
 				
 				// Make replacements
