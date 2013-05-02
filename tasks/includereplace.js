@@ -120,10 +120,12 @@ module.exports = function(grunt) {
 			return contents;
 		}
 		
-		this.files.forEach(function(srcDest) {
-			
-			srcDest.orig.src.forEach(function(origSrc) {
-				
+		this.files.forEach(function(config) {
+			config.orig.src.forEach(function(origSrc) {
+        if (config.cwd) {
+          origSrc = path.join(config.cwd, origSrc);
+        }
+
 				grunt.log.debug('Processing glob ' + origSrc);
 				
 				// Get the base dir, which we want to omit from our destination path
@@ -133,7 +135,7 @@ module.exports = function(grunt) {
 					baseDir = path.dirname(baseDir);
 				
 				grunt.log.debug('Base dir ' + baseDir);
-				
+
 				grunt.file.expand(origSrc).forEach(function(src) {
 					
 					if(!grunt.file.isFile(src)) return;
@@ -152,7 +154,7 @@ module.exports = function(grunt) {
 					grunt.log.debug(contents);
 					
 					var filename = (baseDir == '.') ? src : src.replace(baseDir, '');
-					var dest = path.normalize(srcDest.dest + path.sep + filename);
+					var dest = path.normalize(config.dest + path.sep + filename);
 					
 					grunt.log.debug('Saving to', dest);
 					
