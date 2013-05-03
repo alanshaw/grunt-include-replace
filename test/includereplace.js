@@ -23,7 +23,8 @@
 				'multisrcdest/js/main.js',
 				'multisrcdest/js/vendor/jquery.js',
 				'regexp/index.html',
-				'in.html'
+				'in.html',
+				'cwd/index.html'
 			];
 			
 			// Files not expected to exist after execution

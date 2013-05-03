@@ -78,7 +78,6 @@ module.exports = function(grunt) {
 				src: 'test/files/regexp/index.html',
 				dest: 'dist/regexp/'
 			},
-
 			includesDir: {
 				src: 'test/files/includes/test.txt',
 				dest: 'dist/includes/',
@@ -87,7 +86,6 @@ module.exports = function(grunt) {
 					includesDir : 'test/global_includes/'
 				}
 			},
-
 			process: {
 				options: {
 					processIncludeContents: function(contents, localVars) {
@@ -102,6 +100,11 @@ module.exports = function(grunt) {
 				files: {
 					'dist/': '*.html'
 				}
+			},
+			cwd: {
+				src: ['cwd/*'],
+				dest: 'dist/cwd',
+				cwd: 'test/files'
 			}
 			// TODO: Test me:
 			// lodash templates in global and local vars

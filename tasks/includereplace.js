@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 				var localVars = matches[3] ? JSON.parse(matches[3]) : {};
 				
 				if(!grunt.file.isPathAbsolute(includePath)) {
-					includePath = path.resolve((options.includesDir ? options.includesDir : workingDir) + path.sep + includePath);
+					includePath = path.resolve(path.join((options.includesDir ? options.includesDir : workingDir), includePath));
 				} else {
 					if(options.includesDir){
 						grunt.log.debug('includesDir works only with relative paths. Could not apply includesDir to ' + includePath);
@@ -100,7 +100,6 @@ module.exports = function(grunt) {
 				grunt.log.debug('Including', includePath);
 				grunt.log.debug('Locals', localVars);
 				
-
 				var includeContents = grunt.file.read(includePath);
 				
 				// Make replacements
@@ -121,11 +120,13 @@ module.exports = function(grunt) {
 		}
 		
 		this.files.forEach(function(config) {
+			
 			config.orig.src.forEach(function(origSrc) {
-        if (config.cwd) {
-          origSrc = path.join(config.cwd, origSrc);
-        }
-
+				
+				if(config.cwd) {
+					origSrc = path.join(config.cwd, origSrc);
+				}
+				
 				grunt.log.debug('Processing glob ' + origSrc);
 				
 				// Get the base dir, which we want to omit from our destination path
@@ -135,7 +136,7 @@ module.exports = function(grunt) {
 					baseDir = path.dirname(baseDir);
 				
 				grunt.log.debug('Base dir ' + baseDir);
-
+				
 				grunt.file.expand(origSrc).forEach(function(src) {
 					
 					if(!grunt.file.isFile(src)) return;
@@ -154,7 +155,7 @@ module.exports = function(grunt) {
 					grunt.log.debug(contents);
 					
 					var filename = (baseDir == '.') ? src : src.replace(baseDir, '');
-					var dest = path.normalize(config.dest + path.sep + filename);
+					var dest = path.join(config.dest, filename);
 					
 					grunt.log.debug('Saving to', dest);
 					
