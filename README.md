@@ -67,7 +67,9 @@ includereplace: {
 		// Files to perform replacements and includes with
 		src: '*.html',
 		// Destination directory to copy files to
-		dest: 'dist/'
+		dest: 'dist/',
+		// Optional directory from where src files are relative to
+		cwd: ''
 	}
 }
 ```
@@ -95,6 +97,7 @@ WARNING: The task _does not_ check for recursive includes.
 Release History
 ---------------
 
+ * 2013-05-03   v0.4.0   Support for cwd directive
  * 2013-04-26   v0.3.0   Added new option includesDir - if set all includes resolved relative to that directory
  * 2013-04-19   v0.2.0   Added option processIncludeContents - a function that allows you to alter included file contents
  * 2013-02-18   v0.1.0   Grunt 0.4.x support
