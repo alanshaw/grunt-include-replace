@@ -1,22 +1,21 @@
-grunt-include-replace [![Build Status](https://travis-ci.org/alanshaw/grunt-include-replace.png)](https://travis-ci.org/alanshaw/grunt-include-replace) [![devDependency Status](https://david-dm.org/alanshaw/grunt-include-replace/dev-status.png)](https://david-dm.org/alanshaw/grunt-include-replace#info=devDependencies)
-=====================
+# grunt-include-replace [![Build Status](https://travis-ci.org/alanshaw/grunt-include-replace.png)](https://travis-ci.org/alanshaw/grunt-include-replace) [![devDependency Status](https://david-dm.org/alanshaw/grunt-include-replace/dev-status.png)](https://david-dm.org/alanshaw/grunt-include-replace#info=devDependencies)
 
-Grunt task to include files and replace variables.
+> Grunt task to include files and replace variables.
 
 Allows for parameterised file includes:
- 
+
 hello.html
 
 ```html
 <!DOCTYPE html>
 <h1>Hello World!</h1>
-<p>@@include('/path/to/include/message.html', {"name": "Joe Bloggs"})</p>
+@@include('/path/to/include/message.html', {"name": "Joe Bloggs"})
 ```
 
 message.html
 
 ```html
-Hello @@name!
+<p>Hello @@name!</p>
 ```
 
 Result:
@@ -27,50 +26,92 @@ Result:
 <p>Hello Joe Bloggs!</p>
 ```
 
-Getting started
----------------
+## Getting Started
 
-Install [Node.js](http://nodejs.org/) and [Grunt](http://gruntjs.com/).
+This plugin requires Grunt `~0.4.1`
 
-Install grunt-include-replace:
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
-	cd /path/to/your/project
-	npm install grunt-include-replace
+```shell
+npm install grunt-include-replace --save-dev
+```
 
-_Note: as of version 0.1.0 this plugin requires grunt 0.4. Install version 0.0.0-beta for grunt 0.3 support._
+One the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
-Then add this line to your project's `Gruntfile.js`:
-
-```javascript
+```js
 grunt.loadNpmTasks('grunt-include-replace');
 ```
 
-Next, configure the task in your `Gruntfile.js`:
+## The "includereplace" task
+
+
+### Overview
+
+The task allows you to preprocess your project file contents by replacing placeholder "variables" and including content from other files. In addition to "global" variables that are replaced in all files you specify, the task introduces the concept of "local" variables, which are passed as parameters to included files.
+
+WARNING: The task _does not_ check for recursive includes.
+
+In your project's Gruntfile, add a section named `includereplace` to the data object passed into `grunt.initConfig()`.
+
+```js
+grunt.initConfig({
+  includereplace: {
+    your_target: {
+      options: {
+        // Task-specific options go here.
+      }
+      // Files to perform replacements and includes with
+      src: '*.html',
+      // Destination directory to copy files to
+      dest: 'dist/'
+    }
+  }
+})
+```
+
+### Options
+
+#### options.globals
+Type: `Object`
+Default value: `{}`
+
+Global variables availabe for replacement in all files.
+
+#### options.prefix
+Type: `String`
+Default value: `@@`
+
+Variable/include directive prefix. Careful when changing as it is added to the regular expression used for finding variables to be replaced.
+
+#### options.suffix
+Type: `String`
+Default value: ``
+
+Variable/include directive suffix. Careful when changing as it is added to the regular expression used for finding variables to be replaced.
+
+#### options.includesDir
+Type: `String`
+Default value: Relative to including file
+
+Directory where includes will be resolved.
+
+### Usage Examples
+
+#### Default Options
 
 ```javascript
-// Add this task to your grunt.initConfig call
 includereplace: {
-	dist: {
-		options: {
-			// Global variables available in all files
-			globals: {
-				var1: 'one',
-				var2: 'two',
-				var3: 'three'
-			},
-			// Optional variable prefix & suffix, defaults as shown
-			prefix: '@@',
-			suffix: '',
-			//Optional - directory where includes will be resolved, default relative to including file
-			includesDir: 'global_includes/'
-		},
-		// Files to perform replacements and includes with
-		src: '*.html',
-		// Destination directory to copy files to
-		dest: 'dist/',
-		// Optional directory from where src files are relative to
-		cwd: ''
-	}
+  dist: {
+    options: {
+      globals: {
+        var1: 'one',
+        var2: 'two',
+        var3: 'three'
+      },
+    },
+    src: '*.html',
+    dest: 'dist/'
+  }
 }
 ```
 
@@ -78,24 +119,45 @@ includereplace: {
 
 ```javascript
 includereplace: {
-	dist: {
-		options: {
-			globals: {foo: 'bar'}
-		},
-		files: {
-			'dist/js': 'js/**/*.js',
-			'dist/css': 'css/*.css'
-		}
-	}
+  dist: {
+    options: {
+      globals: {
+        var1: 'one',
+        var2: 'two',
+        var3: 'three'
+      },
+    },
+    files: {
+      'dist/js': 'js/**/*.js',
+      'dist/css': 'css/*.css'
+    }
+  }
 }
 ```
 
-Run the task by invoking `grunt includereplace`
+#### Custom Options
 
-WARNING: The task _does not_ check for recursive includes.
+The following example allows include statements to appear as comments in HTML files by altering the prefix and suffix. Also all includes are resolved relative to the directory `inc/` (relative to your Gruntfile) rather than relative to including file.
 
-Release History
----------------
+```javascript
+includereplace: {
+  dist: {
+    options: {
+      prefix: '<!-- @@',
+      suffix: ' -->',
+      includesDir: 'inc/'
+    },
+    src: '*.html',
+    dest: 'dist/'
+  }
+}
+```
+
+## Contributing
+
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+
+## Release History
 
  * 2013-05-03   v0.4.0   Support for cwd directive
  * 2013-04-26   v0.3.0   Added new option includesDir - if set all includes resolved relative to that directory
