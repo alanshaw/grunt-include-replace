@@ -118,8 +118,7 @@ module.exports = function(grunt) {
 		
 		jshint: {
 			options: {
-				node: true,
-				es5: true
+				node: true
 			},
 			files: ['grunt.js', 'tasks/*.js', 'test/*.js']
 		},
