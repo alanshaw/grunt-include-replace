@@ -1,1 +1,0 @@
-window.ns = window.ns || {};

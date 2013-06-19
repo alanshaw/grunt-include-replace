@@ -121,48 +121,36 @@ module.exports = function(grunt) {
 		
 		this.files.forEach(function(config) {
 			
-			config.orig.src.forEach(function(origSrc) {
+			config.src.forEach(function(src) {
 				
-				if(config.cwd) {
-					origSrc = path.join(config.cwd, origSrc);
+				grunt.log.debug('Processing glob ' + src);
+				
+				if(!grunt.file.isFile(src)) return;
+				
+				grunt.log.debug('Processing ' + src);
+				
+				// Read file
+				var contents = grunt.file.read(src);
+				
+				// Make replacements
+				contents = replace(contents);
+				
+				// Process includes
+				contents = include(contents, path.dirname(src));
+				
+				//grunt.log.debug(contents);
+				
+				var dest = config.dest;
+				
+				if(!config.orig.cwd) {
+					dest = path.join(dest, src);
 				}
 				
-				grunt.log.debug('Processing glob ' + origSrc);
+				grunt.log.debug('Saving to', dest);
 				
-				// Get the base dir, which we want to omit from our destination path
-				var baseDir = path.dirname(origSrc);
+				grunt.file.write(dest, contents);
 				
-				while(_(baseDir).endsWith('**'))
-					baseDir = path.dirname(baseDir);
-				
-				grunt.log.debug('Base dir ' + baseDir);
-				
-				grunt.file.expand(origSrc).forEach(function(src) {
-					
-					if(!grunt.file.isFile(src)) return;
-					
-					grunt.log.debug('Processing ' + src);
-					
-					// Read file
-					var contents = grunt.file.read(src);
-					
-					// Make replacements
-					contents = replace(contents);
-					
-					// Process includes
-					contents = include(contents, path.dirname(src));
-					
-					grunt.log.debug(contents);
-					
-					var filename = (baseDir == '.') ? src : src.replace(baseDir, '');
-					var dest = path.join(config.dest, filename);
-					
-					grunt.log.debug('Saving to', dest);
-					
-					grunt.file.write(dest, contents);
-					
-					grunt.log.ok('Processed ' + src);
-				});
+				grunt.log.ok('Processed ' + src);
 			});
 		});
 	});

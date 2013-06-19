@@ -14,9 +14,9 @@
 				'parameters/test.html',
 				'types/test.js',
 				'prefixsuffix/test.html',
-				'multisrc/scripts/jquery.js',
-				'multisrc/scripts/script.js',
-				'multisrc/scripts/underscore.js',
+				'multisrc/lib/jquery.js',
+				'multisrc/lib/underscore.js',
+				'multisrc/js/script.js',
 				'multisrcdest/css/main.css',
 				'multisrcdest/css/normalize.css',
 				'multisrcdest/html/index.html',
@@ -24,12 +24,14 @@
 				'multisrcdest/js/vendor/jquery.js',
 				'regexp/index.html',
 				'in.html',
-				'cwd/index.html'
+				'cwd/index.html',
+				'exclusions/included.html'
 			];
 			
 			// Files not expected to exist after execution
 			var unexpectations = [
-				'multisrc/scripts/inc/namespace.js'
+				'multisrc/js/inc/namespace.js',
+				'exclusions/excluded.js'
 			];
 			
 			test.expect(expectations.length + unexpectations.length);

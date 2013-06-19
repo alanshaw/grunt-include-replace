@@ -10,8 +10,10 @@ module.exports = function(grunt) {
 				dest: 'dist/everything/'
 			},
 			parameterless: {
-				src: 'test/files/parameterless/test.txt',
-				dest: 'dist/parameterless/'
+				src: 'parameterless/test.txt',
+				dest: 'dist/',
+				expand: true,
+				cwd: 'test/files/'
 			},
 			globals: {
 				options: {
@@ -21,12 +23,16 @@ module.exports = function(grunt) {
 						var3: 'three'
 					}
 				},
-				src: 'test/files/globals/test.html',
-				dest: 'dist/globals'
+				src: 'globals/test.html',
+				dest: 'dist/',
+				expand: true,
+				cwd: 'test/files/'
 			},
 			parameters: {
-				src: ['test/files/parameters/test.html'],
-				dest: 'dist/parameters'
+				src: ['parameters/test.html'],
+				dest: 'dist/',
+				expand: true,
+				cwd: 'test/files/'
 			},
 			types: {
 				options: {
@@ -42,8 +48,9 @@ module.exports = function(grunt) {
 						'string': 'onethirtyeight'
 					}
 				},
-				src: 'test/files/types/test.js',
-				dest: 'dist/types/'
+				files: [
+					{src: 'types/test.js', dest: 'dist/', expand: true, cwd: 'test/files/'}
+				]
 			},
 			prefixsuffix: {
 				options: {
@@ -53,34 +60,42 @@ module.exports = function(grunt) {
 						x: 1138
 					}
 				},
-				src: 'test/files/prefixsuffix/test.html',
-				dest: 'dist/prefixsuffix/'
+				src: 'prefixsuffix/test.html',
+				dest: 'dist/',
+				expand: true,
+				cwd: 'test/files/'
 			},
 			multisrc: {
 				options: {
 					prefix: '"@@',
 					suffix: '"'
 				},
-				src: ['test/files/multisrc/js/*.js', 'test/files/multisrc/lib/**/*.js'],
-				dest: 'dist/multisrc/scripts'
+				src: ['js/*.js', 'lib/**/*.js'],
+				dest: 'dist/multisrc',
+				expand: true,
+				cwd: 'test/files/multisrc/'
 			},
 			multisrcdest: {
 				options: {
 					globals: {foo: 'bar'}
 				},
-				files: {
-					'dist/multisrcdest/js': 'test/files/multisrcdest/js/**/*.js',
-					'dist/multisrcdest/html': 'test/files/multisrcdest/html/*.html',
-					'dist/multisrcdest/css': 'test/files/multisrcdest/css/*.css'
-				}
+				files: [
+					{src: '**/*.js', dest: 'dist/multisrcdest/js', expand: true, cwd: 'test/files/multisrcdest/js'},
+					{src: '**/*.html', dest: 'dist/multisrcdest/html', expand: true, cwd: 'test/files/multisrcdest/html'},
+					{src: '**/*.css', dest: 'dist/multisrcdest/css', expand: true, cwd: 'test/files/multisrcdest/css'}
+				]
 			},
 			regexp: {
-				src: 'test/files/regexp/index.html',
-				dest: 'dist/regexp/'
+				src: 'index.html',
+				dest: 'dist/regexp/',
+				expand: true,
+				cwd: 'test/files/regexp/'
 			},
 			includesDir: {
-				src: 'test/files/includes/test.txt',
+				src: 'test.txt',
 				dest: 'dist/includes/',
+				expand: true,
+				cwd: 'test/files/includes/',
 				options : {
 					//The base path where includes will be resolved
 					includesDir : 'test/global_includes/'
@@ -93,8 +108,10 @@ module.exports = function(grunt) {
 						return contents.replace(/^/gm, indent);
 					}
 				},
-				src: 'test/files/process/test.coffee',
-				dest: 'dist/process/'
+				src: 'test.coffee',
+				dest: 'dist/process/',
+				expand: true,
+				cwd: 'test/files/process/'
 			},
 			inhtml: {
 				files: {
@@ -103,7 +120,14 @@ module.exports = function(grunt) {
 			},
 			cwd: {
 				src: ['cwd/*'],
-				dest: 'dist/cwd',
+				dest: 'dist/',
+				expand: true,
+				cwd: 'test/files'
+			},
+			exclusions: {
+				src: ['exclusions/*', '!exclusions/*.js'],
+				dest: 'dist/',
+				expand: true,
 				cwd: 'test/files'
 			}
 			// TODO: Test me:
