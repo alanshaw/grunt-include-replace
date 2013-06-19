@@ -115,7 +115,27 @@ includereplace: {
 }
 ```
 
-...or in "list" format:
+##### Files array format
+
+```javascript
+includereplace: {
+  dist: {
+    options: {
+      globals: {
+        var1: 'one',
+        var2: 'two',
+        var3: 'three'
+      },
+    },
+    files: [
+      {src: 'js/**/*.js', dest: 'dist/' expand: true, cwd: 'src/'},
+      {src: '*.css', dest: 'dist/css/' expand: true, cwd: 'src/css'}
+    ]
+  }
+}
+```
+
+##### Files object format
 
 ```javascript
 includereplace: {
@@ -128,8 +148,8 @@ includereplace: {
       },
     },
     files: {
-      'dist/js': 'js/**/*.js',
-      'dist/css': 'css/*.css'
+      'dist/js/': ['**/*.js', '!dist/**/*.js'],
+      'dist/css/': ['**/*.css', '!dist/**/*.css']
     }
   }
 }
@@ -159,6 +179,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+ * 2013-06-19   v1.0.0   Refactored files processing code to use Grunt files API properly
  * 2013-05-03   v0.4.0   Support for cwd directive
  * 2013-04-26   v0.3.0   Added new option includesDir - if set all includes resolved relative to that directory
  * 2013-04-19   v0.2.0   Added option processIncludeContents - a function that allows you to alter included file contents
