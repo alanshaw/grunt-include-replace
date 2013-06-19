@@ -95,6 +95,12 @@ Default value: Relative to including file
 
 Directory where includes will be resolved.
 
+#### options.docroot
+Type: `String`
+Default value: `.`
+
+`@@docroot` is a magic local variable that contains the relative path from the file that uses it to the path specified.
+
 ### Usage Examples
 
 #### Default Options
@@ -179,6 +185,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+ * 2013-06-19   v1.1.0   Added magic local variable `@@docroot`: relative path from the file that uses it to the path specified
  * 2013-06-19   v1.0.0   Refactored files processing code to use Grunt files API properly
  * 2013-05-03   v0.4.0   Support for cwd directive
  * 2013-04-26   v0.3.0   Added new option includesDir - if set all includes resolved relative to that directory
