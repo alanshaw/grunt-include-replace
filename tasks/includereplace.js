@@ -21,7 +21,8 @@ module.exports = function(grunt) {
 			prefix: '@@',
 			suffix: '',
 			globals: {},
-			includesDir: ''
+			includesDir: '',
+			docroot: '.'
 		});
 		
 		// Variables available in ALL files
@@ -96,6 +97,10 @@ module.exports = function(grunt) {
 					}
 					includePath = path.resolve(includePath);
 				}
+				
+				var docroot = path.relative(includePath, path.resolve(options.docroot));
+				
+				console.log('docroot='+docroot);
 				
 				grunt.log.debug('Including', includePath);
 				grunt.log.debug('Locals', localVars);
