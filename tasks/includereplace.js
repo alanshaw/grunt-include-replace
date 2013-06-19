@@ -25,6 +25,8 @@ module.exports = function(grunt) {
 			docroot: '.'
 		});
 		
+		grunt.log.debug('Options', options);
+		
 		// Variables available in ALL files
 		var globalVars = options.globals;
 		
@@ -38,8 +40,6 @@ module.exports = function(grunt) {
 				globalVars[globalVarName] = JSON.stringify(globalVars[globalVarName]);
 			}
 		});
-		
-		grunt.log.debug('Globals', globalVars);
 		
 		// Cached variable regular expressions
 		var globalVarRegExps = {};
@@ -93,14 +93,17 @@ module.exports = function(grunt) {
 					includePath = path.resolve(path.join((options.includesDir ? options.includesDir : workingDir), includePath));
 				} else {
 					if(options.includesDir){
-						grunt.log.debug('includesDir works only with relative paths. Could not apply includesDir to ' + includePath);
+						grunt.log.warn('includesDir works only with relative paths. Could not apply includesDir to ' + includePath);
 					}
 					includePath = path.resolve(includePath);
 				}
 				
-				var docroot = path.relative(includePath, path.resolve(options.docroot));
+				var docroot = path.relative(path.dirname(includePath), path.resolve(options.docroot));
 				
-				console.log('docroot='+docroot);
+				// Set docroot as local var but don't overwrite if the user has specified
+				if (localVars.docroot === undefined) {
+					localVars.docroot = docroot ? docroot + '/' : '';
+				}
 				
 				grunt.log.debug('Including', includePath);
 				grunt.log.debug('Locals', localVars);
@@ -137,8 +140,13 @@ module.exports = function(grunt) {
 				// Read file
 				var contents = grunt.file.read(src);
 				
+				var docroot = path.relative(path.dirname(src), path.resolve(options.docroot));
+				var localVars = {docroot: docroot ? docroot + '/' : ''};
+				
+				grunt.log.debug('Locals', localVars);
+				
 				// Make replacements
-				contents = replace(contents);
+				contents = replace(contents, localVars);
 				
 				// Process includes
 				contents = include(contents, path.dirname(src));

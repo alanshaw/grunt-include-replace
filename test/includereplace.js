@@ -25,13 +25,18 @@
 				'regexp/index.html',
 				'in.html',
 				'cwd/index.html',
-				'exclusions/included.html'
+				'exclusions/included.html',
+				'docroot/index.html',
+				'docroot/css/style.css',
+				'docroot/css/print.css',
+				'docroot/pages/about.html'
 			];
 			
 			// Files not expected to exist after execution
 			var unexpectations = [
 				'multisrc/js/inc/namespace.js',
-				'exclusions/excluded.js'
+				'exclusions/excluded.js',
+				'docroot/inc/styles.html'
 			];
 			
 			test.expect(expectations.length + unexpectations.length);

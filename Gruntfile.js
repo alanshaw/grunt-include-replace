@@ -5,10 +5,6 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		
 		includereplace: {
-			everything: {
-				src: 'test/files/**/*.html',
-				dest: 'dist/everything/'
-			},
 			parameterless: {
 				src: 'parameterless/test.txt',
 				dest: 'dist/',
@@ -126,6 +122,15 @@ module.exports = function(grunt) {
 			},
 			exclusions: {
 				src: ['exclusions/*', '!exclusions/*.js'],
+				dest: 'dist/',
+				expand: true,
+				cwd: 'test/files'
+			},
+			docroot: {
+				options: {
+					docroot: 'test/files/docroot/'
+				},
+				src: ['docroot/index.html', 'docroot/pages/*.html', 'docroot/**/*.css'],
 				dest: 'dist/',
 				expand: true,
 				cwd: 'test/files'
