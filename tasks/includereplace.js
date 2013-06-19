@@ -92,8 +92,8 @@ module.exports = function(grunt) {
 				if(!grunt.file.isPathAbsolute(includePath)) {
 					includePath = path.resolve(path.join((options.includesDir ? options.includesDir : workingDir), includePath));
 				} else {
-					if(options.includesDir){
-						grunt.log.warn('includesDir works only with relative paths. Could not apply includesDir to ' + includePath);
+					if (options.includesDir) {
+						grunt.log.error('includesDir works only with relative paths. Could not apply includesDir to ' + includePath);
 					}
 					includePath = path.resolve(includePath);
 				}
