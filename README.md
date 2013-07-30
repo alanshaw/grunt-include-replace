@@ -134,8 +134,8 @@ includereplace: {
       },
     },
     files: [
-      {src: 'js/**/*.js', dest: 'dist/' expand: true, cwd: 'src/'},
-      {src: '*.css', dest: 'dist/css/' expand: true, cwd: 'src/css'}
+      {src: 'js/**/*.js', dest: 'dist/', expand: true, cwd: 'src/'},
+      {src: '*.css', dest: 'dist/css/', expand: true, cwd: 'src/css'}
     ]
   }
 }
