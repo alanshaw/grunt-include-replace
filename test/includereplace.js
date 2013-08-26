@@ -29,7 +29,8 @@
 				'docroot/index.html',
 				'docroot/css/style.css',
 				'docroot/css/print.css',
-				'docroot/pages/about.html'
+				'docroot/pages/about.html',
+				'regexsafeprefixsuffix/index.js'
 			];
 			
 			// Files not expected to exist after execution

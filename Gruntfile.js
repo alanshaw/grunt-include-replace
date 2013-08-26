@@ -134,6 +134,16 @@ module.exports = function(grunt) {
 				dest: 'dist/',
 				expand: true,
 				cwd: 'test/files'
+			},
+			regexSafePrefixSuffix: {
+				options: {
+					prefix: "\\/\\* @@ ",
+					suffix: " \\*\\/"
+				},
+				src: 'regexsafeprefixsuffix/index.js',
+				dest: 'dist/',
+				expand: true,
+				cwd: 'test/files'
 			}
 			// TODO: Test me:
 			// lodash templates in global and local vars
