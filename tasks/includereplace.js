@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 		var globalVarNames = Object.keys(globalVars);
 
 		globalVarNames.forEach(function(globalVarName) {
-			if(_.isString(globalVars[globalVarName])) {
+			if (_.isString(globalVars[globalVarName])) {
 				globalVars[globalVarName] = globalVars[globalVarName];
 			} else {
 				globalVars[globalVarName] = JSON.stringify(globalVars[globalVarName]);
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
 			varNames.forEach(function(varName) {
 
 				// Process lo-dash templates (for strings) in global variables and JSON.stringify the rest
-				if(_.isString(localVars[varName])) {
+				if (_.isString(localVars[varName])) {
 					localVars[varName] = grunt.template.process(localVars[varName]);
 				} else {
 					localVars[varName] = JSON.stringify(localVars[varName]);
@@ -81,13 +81,13 @@ module.exports = function(grunt) {
 
 			var matches = includeRegExp.exec(contents);
 
-			while(matches) {
+			while (matches) {
 
 				var match = matches[0];
 				var includePath = matches[1];
 				var localVars = matches[3] ? JSON.parse(matches[3]) : {};
 
-				if(!grunt.file.isPathAbsolute(includePath)) {
+				if (!grunt.file.isPathAbsolute(includePath)) {
 					includePath = path.resolve(path.join((options.includesDir ? options.includesDir : workingDir), includePath));
 				} else {
 					if (options.includesDir) {
@@ -131,7 +131,7 @@ module.exports = function(grunt) {
 
 				grunt.log.debug('Processing glob ' + src);
 
-				if(!grunt.file.isFile(src)) {
+				if (!grunt.file.isFile(src)) {
 					return;
 				}
 
@@ -155,7 +155,7 @@ module.exports = function(grunt) {
 
 				var dest = config.dest;
 
-				if(!config.orig.cwd) {
+				if (!config.orig.cwd) {
 					dest = path.join(dest, src);
 				}
 
