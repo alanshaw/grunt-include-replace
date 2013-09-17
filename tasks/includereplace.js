@@ -8,12 +8,10 @@
 
 module.exports = function(grunt) {
 
-	"use strict";
+	'use strict';
 
 	var _ = grunt.util._;
-
 	var path = require('path');
-	var fs = require('fs');
 
 	grunt.registerMultiTask('includereplace', 'Include files and replace variables', function() {
 
@@ -133,7 +131,9 @@ module.exports = function(grunt) {
 
 				grunt.log.debug('Processing glob ' + src);
 
-				if(!grunt.file.isFile(src)) return;
+				if(!grunt.file.isFile(src)) {
+					return;
+				}
 
 				grunt.log.debug('Processing ' + src);
 
