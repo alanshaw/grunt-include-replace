@@ -1,12 +1,12 @@
 (function() {
-	
+
 	"use strict";
-	
+
 	var fs = require('fs');
-	
+
 	exports.suite = {
 		test: function(test) {
-			
+
 			var expectations = [
 				'globals/test.html',
 				'includes/test.txt',
@@ -32,27 +32,27 @@
 				'docroot/pages/about.html',
 				'regexsafeprefixsuffix/index.js'
 			];
-			
+
 			// Files not expected to exist after execution
 			var unexpectations = [
 				'multisrc/js/inc/namespace.js',
 				'exclusions/excluded.js',
 				'docroot/inc/styles.html'
 			];
-			
+
 			test.expect(expectations.length + unexpectations.length);
-			
+
 			expectations.forEach(function(expectation) {
 				test.equal(
 					fs.readFileSync('test/expected/' + expectation, 'utf-8'),
 					fs.readFileSync('dist/' + expectation, 'utf-8')
 				);
 			});
-			
+
 			unexpectations.forEach(function(unexpectation) {
 				test.strictEqual(false, fs.existsSync('dist/' + unexpectation));
 			});
-			
+
 			test.done();
 		}
 	};

@@ -1,9 +1,9 @@
 module.exports = function(grunt) {
-	
+
 	"use strict";
-	
+
 	grunt.initConfig({
-		
+
 		includereplace: {
 			parameterless: {
 				src: 'parameterless/test.txt',
@@ -150,27 +150,27 @@ module.exports = function(grunt) {
 			// vars in params
 			// Multiline param
 		},
-		
+
 		nodeunit: {
 			files: ['test/*.js']
 		},
-		
+
 		jshint: {
 			options: {
 				node: true
 			},
 			files: ['grunt.js', 'tasks/*.js', 'test/*.js']
 		},
-		
+
 		clean: {
 			dist: 'dist/*'
 		}
 	});
-	
+
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadTasks('tasks');
-	
+
 	grunt.registerTask('default', ['jshint', 'includereplace', 'nodeunit']);
 };
