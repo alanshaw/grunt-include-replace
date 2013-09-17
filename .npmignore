@@ -1,7 +1,7 @@
-node_modules
-.npmignore
+*.iml
+*.log
 .gitignore
 .idea
-*.iml
+.npmignore
 dist
-*.log
+node_modules
