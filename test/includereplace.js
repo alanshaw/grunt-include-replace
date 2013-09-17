@@ -8,36 +8,36 @@
 		test: function(test) {
 
 			var expectations = [
+				'cwd/index.html',
+				'docroot/css/print.css',
+				'docroot/css/style.css',
+				'docroot/index.html',
+				'docroot/pages/about.html',
+				'exclusions/included.html',
 				'globals/test.html',
+				'in.html',
 				'includes/test.txt',
-				'parameterless/test.txt',
-				'parameters/test.html',
-				'types/test.js',
-				'prefixsuffix/test.html',
+				'multisrc/js/script.js',
 				'multisrc/lib/jquery.js',
 				'multisrc/lib/underscore.js',
-				'multisrc/js/script.js',
 				'multisrcdest/css/main.css',
 				'multisrcdest/css/normalize.css',
 				'multisrcdest/html/index.html',
 				'multisrcdest/js/main.js',
 				'multisrcdest/js/vendor/jquery.js',
+				'parameterless/test.txt',
+				'parameters/test.html',
+				'prefixsuffix/test.html',
 				'regexp/index.html',
-				'in.html',
-				'cwd/index.html',
-				'exclusions/included.html',
-				'docroot/index.html',
-				'docroot/css/style.css',
-				'docroot/css/print.css',
-				'docroot/pages/about.html',
-				'regexsafeprefixsuffix/index.js'
+				'regexsafeprefixsuffix/index.js',
+				'types/test.js'
 			];
 
 			// Files not expected to exist after execution
 			var unexpectations = [
-				'multisrc/js/inc/namespace.js',
+				'docroot/inc/styles.html',
 				'exclusions/excluded.js',
-				'docroot/inc/styles.html'
+				'multisrc/js/inc/namespace.js'
 			];
 
 			test.expect(expectations.length + unexpectations.length);
