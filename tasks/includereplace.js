@@ -87,9 +87,9 @@ module.exports = function(grunt) {
 					return replacement;
 				};
 			}
-			
+
 			while (matches) {
-				
+
 				var match = matches[0];
 				var includePath = matches[1];
 				var localVars = matches[3] ? JSON.parse(matches[3]) : {};
