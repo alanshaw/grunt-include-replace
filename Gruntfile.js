@@ -1,9 +1,9 @@
 module.exports = function(grunt) {
-	
-	"use strict";
-	
+
+	'use strict';
+
 	grunt.initConfig({
-		
+
 		includereplace: {
 			parameterless: {
 				src: 'parameterless/test.txt',
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 					globals: {
 						'int': 138,
 						'float': 11.38,
-						'array': ['foo', "bar", 138, 1.138, {foo: 'bar', bar: 138, baz: [1, 3, 8]}],
+						'array': ['foo', 'bar', 138, 1.138, {foo: 'bar', bar: 138, baz: [1, 3, 8]}],
 						'object': {
 							a: 'aaa',
 							b: 138,
@@ -100,7 +100,7 @@ module.exports = function(grunt) {
 			process: {
 				options: {
 					processIncludeContents: function(contents, localVars) {
-						var indent = Array((parseInt(localVars.indent, 10)) + 1).join(" ");
+						var indent = new Array((parseInt(localVars.indent, 10)) + 1).join(' ');
 						return contents.replace(/^/gm, indent);
 					}
 				},
@@ -137,8 +137,8 @@ module.exports = function(grunt) {
 			},
 			regexSafePrefixSuffix: {
 				options: {
-					prefix: "\\/\\* @@ ",
-					suffix: " \\*\\/"
+					prefix: '\\/\\* @@ ',
+					suffix: ' \\*\\/'
 				},
 				src: 'regexsafeprefixsuffix/index.js',
 				dest: 'dist/',
@@ -156,27 +156,52 @@ module.exports = function(grunt) {
 			// vars in params
 			// Multiline param
 		},
-		
+
 		nodeunit: {
 			files: ['test/*.js']
 		},
-		
+
 		jshint: {
 			options: {
-				node: true
+				'browser': false,
+				'maxerr': 100,
+				'node': true,
+				'camelcase': true,
+				'curly': true,
+				'eqeqeq': true,
+				'eqnull': true,
+				'forin': true,
+				'immed': true,
+				'indent': 4,
+				'laxbreak': true,
+				'laxcomma': true,
+				'lastsemic': true,
+				'loopfunc': true,
+				'noarg': true,
+				'newcap': true,
+				'plusplus': false,
+				'quotmark': 'single',
+				'regexp': true,
+				'shadow': true,
+				'smarttabs': false,
+				'strict': true,
+				'sub': true,
+				'trailing': true,
+				'undef': true,
+				'unused': true
 			},
-			files: ['grunt.js', 'tasks/*.js', 'test/*.js']
+			files: ['Gruntfile.js', 'tasks/*.js', 'test/*.js']
 		},
-		
+
 		clean: {
 			dist: 'dist/*'
 		}
 	});
-	
-	grunt.loadNpmTasks('grunt-contrib-nodeunit');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
+
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 	grunt.loadTasks('tasks');
-	
+
 	grunt.registerTask('default', ['jshint', 'includereplace', 'nodeunit']);
 };
