@@ -119,7 +119,9 @@ module.exports = function(grunt) {
 					includeContents = options.processIncludeContents(includeContents, localVars);
 				}
 				
-				contents = contents.replace(match, includeContents);
+				contents = contents.replace(match, function () {
+					return includeContents;
+				});
 				
 				matches = includeRegExp.exec(contents);
 			}
