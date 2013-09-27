@@ -13,7 +13,7 @@
   },
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "grunt jshint includereplace nodeunit"
+    "test": "grunt"
   },
   "keywords": [
     "gruntplugin",
