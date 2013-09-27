@@ -82,6 +82,13 @@ module.exports = function(grunt) {
 		function include(contents, workingDir) {
 			
 			var matches = includeRegExp.exec(contents);
+
+			// Create a function that can be passed to String.replace as the second arg
+			function createReplaceFn (replacement) {
+				return function () {
+					return replacement;
+				};
+			}
 			
 			while(matches) {
 				
@@ -119,9 +126,7 @@ module.exports = function(grunt) {
 					includeContents = options.processIncludeContents(includeContents, localVars);
 				}
 				
-				contents = contents.replace(match, function () {
-					return includeContents;
-				});
+				contents = contents.replace(match, createReplaceFn(includeContents));
 				
 				matches = includeRegExp.exec(contents);
 			}

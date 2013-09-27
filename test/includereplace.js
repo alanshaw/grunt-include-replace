@@ -30,14 +30,16 @@
 				'docroot/css/style.css',
 				'docroot/css/print.css',
 				'docroot/pages/about.html',
-				'regexsafeprefixsuffix/index.js'
+				'regexsafeprefixsuffix/index.js',
+				'lastMatch/index.html'
 			];
 			
 			// Files not expected to exist after execution
 			var unexpectations = [
 				'multisrc/js/inc/namespace.js',
 				'exclusions/excluded.js',
-				'docroot/inc/styles.html'
+				'docroot/inc/styles.html',
+				'lastMatch/header.inc.html'
 			];
 			
 			test.expect(expectations.length + unexpectations.length);

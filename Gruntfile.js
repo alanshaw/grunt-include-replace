@@ -144,6 +144,12 @@ module.exports = function(grunt) {
 				dest: 'dist/',
 				expand: true,
 				cwd: 'test/files'
+			},
+			lastMatch: {
+				src: 'lastMatch/index.html',
+				dest: 'dist/',
+				expand: true,
+				cwd: 'test/files'
 			}
 			// TODO: Test me:
 			// lodash templates in global and local vars
