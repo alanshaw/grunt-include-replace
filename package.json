@@ -11,7 +11,6 @@
   "bugs": {
     "url": "https://github.com/alanshaw/grunt-include-replace/issues"
   },
-  "main": "Gruntfile.js",
   "scripts": {
     "test": "grunt"
   },
@@ -25,12 +24,7 @@
     "import",
     "template"
   ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/alanshaw/grunt-include-replace/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.5.0",
