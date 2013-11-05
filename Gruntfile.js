@@ -164,7 +164,6 @@ module.exports = function(grunt) {
 		jshint: {
 			options: {
 				'browser': false,
-				'maxerr': 100,
 				'node': true,
 				'camelcase': true,
 				'curly': true,
@@ -181,7 +180,6 @@ module.exports = function(grunt) {
 				'newcap': true,
 				'plusplus': false,
 				'quotmark': 'single',
-				'regexp': true,
 				'shadow': true,
 				'smarttabs': false,
 				'strict': true,
