@@ -3,5 +3,8 @@
 .gitignore
 .idea
 .npmignore
-dist
-node_modules
+.travis.yml
+/dist/
+/in.html
+/node_modules/
+/test/
