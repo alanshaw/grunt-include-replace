@@ -163,7 +163,7 @@ module.exports = function(grunt) {
 				var dest = config.dest;
 
 				if (!config.orig.cwd) {
-					dest = path.join(dest, src);
+					dest = path.join(dest, path.dirname(src));
 				}
 
 				grunt.log.debug('Saving to', dest);
