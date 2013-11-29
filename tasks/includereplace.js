@@ -103,7 +103,7 @@ module.exports = function(grunt) {
 					includePath = path.resolve(includePath);
 				}
 
-				var docroot = path.relative(path.dirname(includePath), path.resolve(options.docroot));
+				var docroot = path.relative(path.dirname(includePath), path.resolve(options.docroot)).replace('\\', '/');
 
 				// Set docroot as local var but don't overwrite if the user has specified
 				if (localVars.docroot === undefined) {
@@ -147,7 +147,7 @@ module.exports = function(grunt) {
 				// Read file
 				var contents = grunt.file.read(src);
 
-				var docroot = path.relative(path.dirname(src), path.resolve(options.docroot));
+				var docroot = path.relative(path.dirname(src), path.resolve(options.docroot)).replace('\\', '/');
 				var localVars = {docroot: docroot ? docroot + '/' : ''};
 
 				grunt.log.debug('Locals', localVars);
