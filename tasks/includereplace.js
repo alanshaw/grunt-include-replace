@@ -162,7 +162,7 @@ module.exports = function(grunt) {
 
 				var dest = config.dest;
 
-				if (!config.orig.cwd) {
+				if (isDirectory(dest) && !config.orig.cwd) {
 					dest = path.join(dest, src);
 				}
 
@@ -174,4 +174,11 @@ module.exports = function(grunt) {
 			});
 		});
 	});
+
+	// Detect if destination path is a directory
+	function isDirectory (dest) {
+		return grunt.util._.endsWith(dest, '/');
+	}
 };
+
+

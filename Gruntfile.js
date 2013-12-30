@@ -150,6 +150,10 @@ module.exports = function(grunt) {
 				dest: 'dist/',
 				expand: true,
 				cwd: 'test/files'
+			},
+			copyFileToFile: {
+				src: 'test/files/copyFileToFile/index.html',
+				dest: 'dist/copyFileToFile/index.production.html'
 			}
 			// TODO: Test me:
 			// lodash templates in global and local vars

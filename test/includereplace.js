@@ -31,7 +31,8 @@
 				'prefixsuffix/test.html',
 				'regexp/index.html',
 				'regexsafeprefixsuffix/index.js',
-				'types/test.js'
+				'types/test.js',
+				'copyFileToFile/index.production.html'
 			];
 
 			// Files not expected to exist after execution
