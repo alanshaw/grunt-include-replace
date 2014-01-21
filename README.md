@@ -101,6 +101,12 @@ Default value: `.`
 
 `@@docroot` is a magic local variable that contains the relative path from the file that uses it to the path specified.
 
+#### options.processIncludeContents
+Type: `Function`
+Default value: undefined
+
+A function called for every included file prior to processing by `grunt-include-replace`. It is passed the include file contents and local variables as parameters and should return the (possibly altered) file contents.
+
 ### Usage Examples
 
 #### Default Options
