@@ -167,30 +167,7 @@ module.exports = function(grunt) {
 
 		jshint: {
 			options: {
-				'browser': false,
-				'node': true,
-				'camelcase': true,
-				'curly': true,
-				'eqeqeq': true,
-				'eqnull': true,
-				'forin': true,
-				'immed': true,
-				'indent': 4,
-				'laxbreak': true,
-				'laxcomma': true,
-				'lastsemic': true,
-				'loopfunc': true,
-				'noarg': true,
-				'newcap': true,
-				'plusplus': false,
-				'quotmark': 'single',
-				'shadow': true,
-				'smarttabs': false,
-				'strict': true,
-				'sub': true,
-				'trailing': true,
-				'undef': true,
-				'unused': true
+				jshintrc: '.jshintrc'
 			},
 			files: ['Gruntfile.js', 'tasks/*.js', 'test/*.js']
 		},
