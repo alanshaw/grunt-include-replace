@@ -3,14 +3,19 @@
   "version": "1.2.0",
   "description": "Grunt task to include files and replace variables. Allows for parameterised includes.",
   "author": "Alan Shaw <alan138@gmail.com>",
+  "license": "MIT",
   "homepage": "https://github.com/alanshaw/grunt-include-replace",
   "repository": {
     "type": "git",
-    "url": "git://github.com:alanshaw/grunt-include-replace.git"
+    "url": "https://github.com:alanshaw/grunt-include-replace.git"
   },
   "bugs": {
     "url": "https://github.com/alanshaw/grunt-include-replace/issues"
   },
+  "files": [
+    "tasks",
+    "LICENCE-MIT"
+  ],
   "scripts": {
     "test": "grunt"
   },
@@ -24,15 +29,14 @@
     "import",
     "template"
   ],
-  "license": "MIT",
   "devDependencies": {
-    "grunt": "~0.4.1",
+    "grunt": "~0.4.4",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-nodeunit": "~0.3.0"
+    "grunt-contrib-jshint": "~0.9.2",
+    "grunt-contrib-nodeunit": "~0.3.3"
   },
   "peerDependencies": {
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.4"
   },
   "engines": {
     "node": ">=0.8.0"

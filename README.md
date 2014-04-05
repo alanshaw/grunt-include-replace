@@ -1,4 +1,4 @@
-# grunt-include-replace [![Build Status](https://travis-ci.org/alanshaw/grunt-include-replace.png)](https://travis-ci.org/alanshaw/grunt-include-replace) [![devDependency Status](https://david-dm.org/alanshaw/grunt-include-replace/dev-status.png)](https://david-dm.org/alanshaw/grunt-include-replace#info=devDependencies)
+# grunt-include-replace [![Build Status](https://travis-ci.org/alanshaw/grunt-include-replace.png)](https://travis-ci.org/alanshaw/grunt-include-replace) [![devDependency Status](https://david-dm.org/alanshaw/grunt-include-replace/dev-status.png?theme=shields.io)](https://david-dm.org/alanshaw/grunt-include-replace#info=devDependencies)
 
 > Grunt task to include files and replace variables.
 
@@ -111,7 +111,7 @@ A function called for every included file prior to processing by `grunt-include-
 
 #### Default Options
 
-```javascript
+```js
 includereplace: {
   dist: {
     options: {
@@ -129,7 +129,7 @@ includereplace: {
 
 ##### Files array format
 
-```javascript
+```js
 includereplace: {
   dist: {
     options: {
@@ -149,7 +149,7 @@ includereplace: {
 
 ##### Files object format
 
-```javascript
+```js
 includereplace: {
   dist: {
     options: {
@@ -171,7 +171,7 @@ includereplace: {
 
 The following example allows include statements to appear as comments in HTML files by altering the prefix and suffix. Also all includes are resolved relative to the directory `inc/` (relative to your Gruntfile) rather than relative to including file.
 
-```javascript
+```js
 includereplace: {
   dist: {
     options: {

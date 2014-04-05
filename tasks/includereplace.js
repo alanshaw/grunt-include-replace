@@ -180,5 +180,3 @@ module.exports = function(grunt) {
 		return grunt.util._.endsWith(dest, '/');
 	}
 };
-
-
