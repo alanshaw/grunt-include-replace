@@ -17,7 +17,6 @@
     "shadow": true,
     "strict": true,
     "sub": true,
-    "trailing": true,
     "undef": true,
     "unused": true
 }
