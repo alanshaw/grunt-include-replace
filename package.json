@@ -7,7 +7,7 @@
   "homepage": "https://github.com/alanshaw/grunt-include-replace",
   "repository": {
     "type": "git",
-    "url": "https://github.com:alanshaw/grunt-include-replace.git"
+    "url": "https://github.com/alanshaw/grunt-include-replace.git"
   },
   "bugs": {
     "url": "https://github.com/alanshaw/grunt-include-replace/issues"
