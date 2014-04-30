@@ -95,7 +95,7 @@ module.exports = function(grunt) {
 				files.forEach(function (filePath, index) {
 					includeContents += grunt.file.read(filePath);
 					// break a line for every file, except for the last one
-					includeContents += index !== files.length-1 ? '\r\n' : '';
+					includeContents += index !== files.length-1 ? '\n' : '';
 
 					// Make replacements
 					includeContents = replace(includeContents, localVars);
