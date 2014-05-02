@@ -59,7 +59,7 @@ grunt.initConfig({
     your_target: {
       options: {
         // Task-specific options go here.
-      }
+      },
       // Files to perform replacements and includes with
       src: '*.html',
       // Destination directory to copy files to
