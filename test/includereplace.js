@@ -15,6 +15,7 @@
 				'docroot/pages/about.html',
 				'exclusions/included.html',
 				'globals/test.html',
+				'globbing/template.js',
 				'in.html',
 				'includes/test.txt',
 				'lastMatch/index.html',

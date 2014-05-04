@@ -3,7 +3,6 @@ module.exports = function(grunt) {
 	'use strict';
 
 	grunt.initConfig({
-
 		includereplace: {
 			parameterless: {
 				src: 'parameterless/test.txt',
@@ -23,6 +22,15 @@ module.exports = function(grunt) {
 				dest: 'dist/',
 				expand: true,
 				cwd: 'test/files/'
+			},
+			globbing: {
+				options: {
+					prefix: '//@@'
+				},
+				cwd: 'test/files/',
+				expand: true,
+				src: 'globbing/template.js',
+				dest: 'dist/'
 			},
 			parameters: {
 				src: ['parameters/test.html'],

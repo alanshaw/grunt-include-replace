@@ -88,6 +88,28 @@ module.exports = function(grunt) {
 				};
 			}
 
+			function getIncludeContents (includePath, localVars) {
+				var files = grunt.file.expand(includePath),
+					includeContents = '';
+
+				files.forEach(function (filePath, index) {
+					includeContents += grunt.file.read(filePath);
+					// break a line for every file, except for the last one
+					includeContents += index !== files.length-1 ? '\n' : '';
+
+					// Make replacements
+					includeContents = replace(includeContents, localVars);
+
+					// Process includes
+					includeContents = include(includeContents, path.dirname(filePath));
+					if (options.processIncludeContents && typeof options.processIncludeContents === 'function') {
+						includeContents = options.processIncludeContents(includeContents, localVars);
+					}
+				});
+
+				return includeContents;
+			}
+
 			while (matches) {
 
 				var match = matches[0];
@@ -113,17 +135,7 @@ module.exports = function(grunt) {
 				grunt.log.debug('Including', includePath);
 				grunt.log.debug('Locals', localVars);
 
-				var includeContents = grunt.file.read(includePath);
-
-				// Make replacements
-				includeContents = replace(includeContents, localVars);
-
-				// Process includes
-				includeContents = include(includeContents, path.dirname(includePath));
-				if (options.processIncludeContents && typeof options.processIncludeContents === 'function') {
-					includeContents = options.processIncludeContents(includeContents, localVars);
-				}
-
+				var includeContents = getIncludeContents(includePath, localVars);
 				contents = contents.replace(match, createReplaceFn(includeContents));
 
 				matches = includeRegExp.exec(contents);
