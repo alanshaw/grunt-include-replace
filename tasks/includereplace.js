@@ -20,7 +20,8 @@ module.exports = function(grunt) {
 			suffix: '',
 			globals: {},
 			includesDir: '',
-			docroot: '.'
+			docroot: '.',
+			replaceOriginal: false
 		});
 
 		grunt.log.debug('Options', options);
@@ -174,8 +175,12 @@ module.exports = function(grunt) {
 
 				var dest = config.dest;
 
-				if (isDirectory(dest) && !config.orig.cwd) {
-					dest = path.join(dest, src);
+				if (options.replaceOriginal) {
+					dest = src;
+				} else {
+					if (isDirectory(dest) && !config.orig.cwd) {
+						dest = path.join(dest, src);
+					}
 				}
 
 				grunt.log.debug('Saving to', dest);
