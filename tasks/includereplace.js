@@ -132,7 +132,13 @@ module.exports = function(grunt) {
 					localVars.docroot = docroot ? docroot + '/' : '';
 				}
 
-				grunt.log.debug('Including', includePath);
+				if (grunt.file.exists(includePath)) {
+					grunt.log.debug('Including', includePath);
+				}
+				else {
+					grunt.log.error('File not found: ', includePath);
+				}
+
 				grunt.log.debug('Locals', localVars);
 
 				var includeContents = getIncludeContents(includePath, localVars);
@@ -145,6 +151,12 @@ module.exports = function(grunt) {
 		}
 
 		this.files.forEach(function(config) {
+
+			config.orig.src.forEach(function(file) {
+				if (!grunt.file.exists(file)) {
+					grunt.log.error('File not found: ', file);
+				}
+			});
 
 			config.src.forEach(function(src) {
 
