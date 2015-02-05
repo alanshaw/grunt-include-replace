@@ -154,7 +154,24 @@ module.exports = function(grunt) {
 
 		this.files.forEach(function(config) {
 
-			grunt.log.debug('Processing glob ' + config.orig.src);
+			// Warn if source files aren't found
+			config.orig.src.forEach(function(src) {
+				if (src[0] === '!') { // Exclusion glob
+					return;
+				}
+
+				var opts = {};
+
+				if (config.orig.cwd) {
+					opts.cwd = config.orig.cwd;
+				}
+
+				var srcs = grunt.file.expand(opts, src);
+
+				if (!srcs.length) {
+					grunt.log.warn('Source file(s) not found', src);
+				}
+			});
 
 			config.src.forEach(function(src) {
 
@@ -162,7 +179,7 @@ module.exports = function(grunt) {
 					return grunt.log.warn('Ignoring non file matching glob', src);
 				}
 
-				grunt.log.debug('Processing ' + src);
+				grunt.log.ok('Processing ' + src);
 
 				// Read file
 				var contents = grunt.file.read(src);
