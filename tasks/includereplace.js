@@ -92,6 +92,11 @@ module.exports = function(grunt) {
 				var files = grunt.file.expand(includePath),
 					includeContents = '';
 
+				// If files is not an array of at least one element then bad
+				if (!files.length) {
+					grunt.log.warn('Include file(s) not found', includePath);
+				}
+
 				files.forEach(function (filePath, index) {
 					includeContents += grunt.file.read(filePath);
 					// break a line for every file, except for the last one
@@ -135,9 +140,6 @@ module.exports = function(grunt) {
 				if (grunt.file.exists(includePath)) {
 					grunt.log.debug('Including', includePath);
 				}
-				else {
-					grunt.log.error('File not found: ', includePath);
-				}
 
 				grunt.log.debug('Locals', localVars);
 
@@ -152,18 +154,12 @@ module.exports = function(grunt) {
 
 		this.files.forEach(function(config) {
 
-			config.orig.src.forEach(function(file) {
-				if (!grunt.file.exists(file)) {
-					grunt.log.error('File not found: ', file);
-				}
-			});
+			grunt.log.debug('Processing glob ' + config.orig.src);
 
 			config.src.forEach(function(src) {
 
-				grunt.log.debug('Processing glob ' + src);
-
 				if (!grunt.file.isFile(src)) {
-					return;
+					return grunt.log.warn('Ignoring non file matching glob', src);
 				}
 
 				grunt.log.debug('Processing ' + src);
