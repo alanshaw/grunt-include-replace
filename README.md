@@ -197,6 +197,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+ * 2015-08-04   v3.1.0   Support for non-utf8 encoding
  * 2015-02-05   v3.0.0   Better logging for missing source files
  * 2014-05-05   v2.0.0   Adds globbing on include paths
  * 2013-12-30   v1.2.0   Rename like `grunt-contrib-copy` by specifying dest filename (for single files)
