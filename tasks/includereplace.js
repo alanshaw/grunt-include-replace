@@ -20,10 +20,14 @@ module.exports = function(grunt) {
 			suffix: '',
 			globals: {},
 			includesDir: '',
-			docroot: '.'
+			docroot: '.',
+			encoding: 'utf-8'
 		});
 
 		grunt.log.debug('Options', options);
+
+		// Preset default encofing as early as possible
+		grunt.file.defaultEncoding = options.encoding;
 
 		// Variables available in ALL files
 		var globalVars = options.globals;

@@ -101,6 +101,12 @@ Default value: `.`
 
 `@@docroot` is a magic local variable that contains the relative path from the file that uses it to the path specified.
 
+#### options.encoding
+Type: `String`  
+Default value: `utf-8`
+
+Encoding files are using.
+
 #### options.processIncludeContents
 Type: `Function`  
 Default value: undefined
