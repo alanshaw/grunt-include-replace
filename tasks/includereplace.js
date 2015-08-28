@@ -112,7 +112,7 @@ module.exports = function(grunt) {
 					// Process includes
 					includeContents = include(includeContents, path.dirname(filePath));
 					if (options.processIncludeContents && typeof options.processIncludeContents === 'function') {
-						includeContents = options.processIncludeContents(includeContents, localVars);
+						includeContents = options.processIncludeContents(includeContents, localVars, filePath);
 					}
 				});
 

@@ -111,7 +111,7 @@ Encoding files are using.
 Type: `Function`  
 Default value: undefined
 
-A function called for every included file prior to processing by `grunt-include-replace`. It is passed the include file contents and local variables as parameters and should return the (possibly altered) file contents.
+A function called for every included file prior to processing by `grunt-include-replace`. It is passed the include file contents, local variables and the file path as parameters and should return the (possibly altered) file contents.
 
 ### Usage Examples
 
@@ -197,6 +197,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+ * 2015-08-28   v3.2.0   Pass file path to processIncludeContents
  * 2015-08-04   v3.1.0   Support for non-utf8 encoding
  * 2015-02-05   v3.0.0   Better logging for missing source files
  * 2014-05-05   v2.0.0   Adds globbing on include paths
