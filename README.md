@@ -75,7 +75,7 @@ grunt.initConfig({
 Type: `Object`  
 Default value: `{}`
 
-Global variables availabe for replacement in all files.
+Global variables available for replacement in all files.
 
 #### options.prefix
 Type: `String`  
