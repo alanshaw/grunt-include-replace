@@ -32,7 +32,8 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-nodeunit": "^1.0.0"
+    "grunt-contrib-nodeunit": "^1.0.0",
+    "standard": "^6.0.8"
   },
   "peerDependencies": {
     "grunt": "~0.4.4 || ^1.0.1"
