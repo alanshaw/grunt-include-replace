@@ -210,6 +210,6 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * 2013-04-19   v0.2.0   Added option processIncludeContents - a function that allows you to alter included file contents
  * 2013-02-18   v0.1.0   Grunt 0.4.x support
 
- ---
+---
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
