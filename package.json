@@ -17,7 +17,7 @@
     "LICENCE-MIT"
   ],
   "scripts": {
-    "test": "grunt"
+    "test": "standard && grunt"
   },
   "keywords": [
     "gruntplugin",
@@ -30,15 +30,21 @@
     "template"
   ],
   "devDependencies": {
-    "grunt": "~0.4.4",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-contrib-nodeunit": "^0.4.1"
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-nodeunit": "^1.0.0"
   },
   "peerDependencies": {
-    "grunt": "~0.4.4"
+    "grunt": "~0.4.4 || ^1.0.1"
   },
   "engines": {
     "node": ">=0.8.0"
+  },
+  "standard": {
+    "ignore": [
+      "test/expected",
+      "test/files",
+      "test/global_includes"
+    ]
   }
 }

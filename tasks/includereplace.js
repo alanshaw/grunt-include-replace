@@ -5,219 +5,210 @@
  * Copyright (c) 2013 Alan Shaw
  * Licensed under the MIT license.
  */
+module.exports = function (grunt) {
+  var path = require('path')
 
-module.exports = function(grunt) {
+  grunt.registerMultiTask('includereplace', 'Include files and replace variables', function () {
+    var options = this.options({
+      prefix: '@@',
+      suffix: '',
+      globals: {},
+      includesDir: '',
+      docroot: '.',
+      encoding: 'utf-8'
+    })
 
-	'use strict';
+    grunt.log.debug('Options', options)
 
-	var _ = grunt.util._;
-	var path = require('path');
+    // Preset default encofing as early as possible
+    grunt.file.defaultEncoding = options.encoding
 
-	grunt.registerMultiTask('includereplace', 'Include files and replace variables', function() {
+    // Variables available in ALL files
+    var globalVars = options.globals
 
-		var options = this.options({
-			prefix: '@@',
-			suffix: '',
-			globals: {},
-			includesDir: '',
-			docroot: '.',
-			encoding: 'utf-8'
-		});
+    // Names of our variables
+    var globalVarNames = Object.keys(globalVars)
 
-		grunt.log.debug('Options', options);
+    globalVarNames.forEach(function (globalVarName) {
+      if (isString(globalVars[globalVarName])) {
+        globalVars[globalVarName] = globalVars[globalVarName]
+      } else {
+        globalVars[globalVarName] = JSON.stringify(globalVars[globalVarName])
+      }
+    })
 
-		// Preset default encofing as early as possible
-		grunt.file.defaultEncoding = options.encoding;
+    // Cached variable regular expressions
+    var globalVarRegExps = {}
 
-		// Variables available in ALL files
-		var globalVars = options.globals;
+    function replace (contents, localVars) {
+      localVars = localVars || {}
 
-		// Names of our variables
-		var globalVarNames = Object.keys(globalVars);
+      var varNames = Object.keys(localVars)
+      var varRegExps = {}
 
-		globalVarNames.forEach(function(globalVarName) {
-			if (_.isString(globalVars[globalVarName])) {
-				globalVars[globalVarName] = globalVars[globalVarName];
-			} else {
-				globalVars[globalVarName] = JSON.stringify(globalVars[globalVarName]);
-			}
-		});
+      // Replace local vars
+      varNames.forEach(function (varName) {
+        // Process lo-dash templates (for strings) in global variables and JSON.stringify the rest
+        if (isString(localVars[varName])) {
+          localVars[varName] = grunt.template.process(localVars[varName])
+        } else {
+          localVars[varName] = JSON.stringify(localVars[varName])
+        }
 
-		// Cached variable regular expressions
-		var globalVarRegExps = {};
+        varRegExps[varName] = varRegExps[varName] || new RegExp(options.prefix + varName + options.suffix, 'g')
 
-		function replace(contents, localVars) {
+        contents = contents.replace(varRegExps[varName], localVars[varName])
+      })
 
-			localVars = localVars || {};
+      // Replace global variables
+      globalVarNames.forEach(function (globalVarName) {
+        globalVarRegExps[globalVarName] = globalVarRegExps[globalVarName] || new RegExp(options.prefix + globalVarName + options.suffix, 'g')
 
-			var varNames = Object.keys(localVars);
-			var varRegExps = {};
+        contents = contents.replace(globalVarRegExps[globalVarName], globalVars[globalVarName])
+      })
 
-			// Replace local vars
-			varNames.forEach(function(varName) {
+      return contents
+    }
 
-				// Process lo-dash templates (for strings) in global variables and JSON.stringify the rest
-				if (_.isString(localVars[varName])) {
-					localVars[varName] = grunt.template.process(localVars[varName]);
-				} else {
-					localVars[varName] = JSON.stringify(localVars[varName]);
-				}
+    var includeRegExp = new RegExp(options.prefix + 'include\\(\\s*["\'](.*?)["\'](,\\s*({[\\s\\S]*?})){0,1}\\s*\\)' + options.suffix)
 
-				varRegExps[varName] = varRegExps[varName] || new RegExp(options.prefix + varName + options.suffix, 'g');
+    function include (contents, workingDir) {
+      var matches = includeRegExp.exec(contents)
 
-				contents = contents.replace(varRegExps[varName], localVars[varName]);
-			});
+      // Create a function that can be passed to String.replace as the second arg
+      function createReplaceFn (replacement) {
+        return function () {
+          return replacement
+        }
+      }
 
-			// Replace global variables
-			globalVarNames.forEach(function(globalVarName) {
+      function getIncludeContents (includePath, localVars) {
+        var files = grunt.file.expand(includePath)
+        var includeContents = ''
 
-				globalVarRegExps[globalVarName] = globalVarRegExps[globalVarName] || new RegExp(options.prefix + globalVarName + options.suffix, 'g');
+        // If files is not an array of at least one element then bad
+        if (!files.length) {
+          grunt.log.warn('Include file(s) not found', includePath)
+        }
 
-				contents = contents.replace(globalVarRegExps[globalVarName], globalVars[globalVarName]);
-			});
+        files.forEach(function (filePath, index) {
+          includeContents += grunt.file.read(filePath)
+          // break a line for every file, except for the last one
+          includeContents += index !== files.length - 1 ? '\n' : ''
 
-			return contents;
-		}
+          // Make replacements
+          includeContents = replace(includeContents, localVars)
 
-		var includeRegExp = new RegExp(options.prefix + 'include\\(\\s*["\'](.*?)["\'](,\\s*({[\\s\\S]*?})){0,1}\\s*\\)' + options.suffix);
+          // Process includes
+          includeContents = include(includeContents, path.dirname(filePath))
+          if (options.processIncludeContents && typeof options.processIncludeContents === 'function') {
+            includeContents = options.processIncludeContents(includeContents, localVars, filePath)
+          }
+        })
 
-		function include(contents, workingDir) {
+        return includeContents
+      }
 
-			var matches = includeRegExp.exec(contents);
+      while (matches) {
+        var match = matches[0]
+        var includePath = matches[1]
+        var localVars = matches[3] ? JSON.parse(matches[3]) : {}
 
-			// Create a function that can be passed to String.replace as the second arg
-			function createReplaceFn (replacement) {
-				return function () {
-					return replacement;
-				};
-			}
+        if (!grunt.file.isPathAbsolute(includePath)) {
+          includePath = path.resolve(path.join((options.includesDir ? options.includesDir : workingDir), includePath))
+        } else {
+          if (options.includesDir) {
+            grunt.log.error('includesDir works only with relative paths. Could not apply includesDir to ' + includePath)
+          }
+          includePath = path.resolve(includePath)
+        }
 
-			function getIncludeContents (includePath, localVars) {
-				var files = grunt.file.expand(includePath),
-					includeContents = '';
+        var docroot = path.relative(path.dirname(includePath), path.resolve(options.docroot)).replace(/\\/g, '/')
 
-				// If files is not an array of at least one element then bad
-				if (!files.length) {
-					grunt.log.warn('Include file(s) not found', includePath);
-				}
+        // Set docroot as local var but don't overwrite if the user has specified
+        if (localVars.docroot === undefined) {
+          localVars.docroot = docroot ? docroot + '/' : ''
+        }
 
-				files.forEach(function (filePath, index) {
-					includeContents += grunt.file.read(filePath);
-					// break a line for every file, except for the last one
-					includeContents += index !== files.length-1 ? '\n' : '';
+        if (grunt.file.exists(includePath)) {
+          grunt.log.debug('Including', includePath)
+        }
 
-					// Make replacements
-					includeContents = replace(includeContents, localVars);
+        grunt.log.debug('Locals', localVars)
 
-					// Process includes
-					includeContents = include(includeContents, path.dirname(filePath));
-					if (options.processIncludeContents && typeof options.processIncludeContents === 'function') {
-						includeContents = options.processIncludeContents(includeContents, localVars, filePath);
-					}
-				});
+        var includeContents = getIncludeContents(includePath, localVars)
+        contents = contents.replace(match, createReplaceFn(includeContents))
 
-				return includeContents;
-			}
+        matches = includeRegExp.exec(contents)
+      }
 
-			while (matches) {
+      return contents
+    }
 
-				var match = matches[0];
-				var includePath = matches[1];
-				var localVars = matches[3] ? JSON.parse(matches[3]) : {};
+    this.files.forEach(function (config) {
+      // Warn if source files aren't found
+      config.orig.src.forEach(function (src) {
+        if (src[0] === '!') { // Exclusion glob
+          return
+        }
 
-				if (!grunt.file.isPathAbsolute(includePath)) {
-					includePath = path.resolve(path.join((options.includesDir ? options.includesDir : workingDir), includePath));
-				} else {
-					if (options.includesDir) {
-						grunt.log.error('includesDir works only with relative paths. Could not apply includesDir to ' + includePath);
-					}
-					includePath = path.resolve(includePath);
-				}
+        var opts = {}
 
-				var docroot = path.relative(path.dirname(includePath), path.resolve(options.docroot)).replace(/\\/g, '/');
+        if (config.orig.cwd) {
+          opts.cwd = config.orig.cwd
+        }
 
-				// Set docroot as local var but don't overwrite if the user has specified
-				if (localVars.docroot === undefined) {
-					localVars.docroot = docroot ? docroot + '/' : '';
-				}
+        var srcs = grunt.file.expand(opts, src)
 
-				if (grunt.file.exists(includePath)) {
-					grunt.log.debug('Including', includePath);
-				}
+        if (!srcs.length) {
+          grunt.log.warn('Source file(s) not found', src)
+        }
+      })
 
-				grunt.log.debug('Locals', localVars);
+      config.src.forEach(function (src) {
+        if (!grunt.file.isFile(src)) {
+          return grunt.log.warn('Ignoring non file matching glob', src)
+        }
 
-				var includeContents = getIncludeContents(includePath, localVars);
-				contents = contents.replace(match, createReplaceFn(includeContents));
+        grunt.log.ok('Processing ' + src)
 
-				matches = includeRegExp.exec(contents);
-			}
+        // Read file
+        var contents = grunt.file.read(src)
 
-			return contents;
-		}
+        var docroot = path.relative(path.dirname(src), path.resolve(options.docroot)).replace(/\\/g, '/')
+        var localVars = {docroot: docroot ? docroot + '/' : ''}
 
-		this.files.forEach(function(config) {
+        grunt.log.debug('Locals', localVars)
 
-			// Warn if source files aren't found
-			config.orig.src.forEach(function(src) {
-				if (src[0] === '!') { // Exclusion glob
-					return;
-				}
+        // Make replacements
+        contents = replace(contents, localVars)
 
-				var opts = {};
+        // Process includes
+        contents = include(contents, path.dirname(src))
 
-				if (config.orig.cwd) {
-					opts.cwd = config.orig.cwd;
-				}
+        // grunt.log.debug(contents)
 
-				var srcs = grunt.file.expand(opts, src);
+        var dest = config.dest
 
-				if (!srcs.length) {
-					grunt.log.warn('Source file(s) not found', src);
-				}
-			});
+        if (isDirectory(dest) && !config.orig.cwd) {
+          dest = path.join(dest, src)
+        }
 
-			config.src.forEach(function(src) {
+        grunt.log.debug('Saving to', dest)
 
-				if (!grunt.file.isFile(src)) {
-					return grunt.log.warn('Ignoring non file matching glob', src);
-				}
+        grunt.file.write(dest, contents)
 
-				grunt.log.ok('Processing ' + src);
+        grunt.log.ok('Processed ' + src)
+      })
+    })
+  })
 
-				// Read file
-				var contents = grunt.file.read(src);
+  function isString (obj) {
+    return Object.prototype.toString.call(obj) === '[object String]'
+  }
 
-				var docroot = path.relative(path.dirname(src), path.resolve(options.docroot)).replace(/\\/g, '/');
-				var localVars = {docroot: docroot ? docroot + '/' : ''};
-
-				grunt.log.debug('Locals', localVars);
-
-				// Make replacements
-				contents = replace(contents, localVars);
-
-				// Process includes
-				contents = include(contents, path.dirname(src));
-
-				//grunt.log.debug(contents);
-
-				var dest = config.dest;
-
-				if (isDirectory(dest) && !config.orig.cwd) {
-					dest = path.join(dest, src);
-				}
-
-				grunt.log.debug('Saving to', dest);
-
-				grunt.file.write(dest, contents);
-
-				grunt.log.ok('Processed ' + src);
-			});
-		});
-	});
-
-	// Detect if destination path is a directory
-	function isDirectory (dest) {
-		return grunt.util._.endsWith(dest, '/');
-	}
-};
+  // Detect if destination path is a directory
+  function isDirectory (dest) {
+    return isString(dest) && dest[dest.length - 1] === '/'
+  }
+}

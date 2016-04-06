@@ -28,7 +28,7 @@ Result:
 
 ## Getting Started
 
-This plugin requires Grunt `~0.4.4`
+This plugin requires Grunt `>=0.4.4`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -197,6 +197,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+ * 2016-04-06   v4.0.0   Grunt 1.x support
  * 2015-08-28   v3.2.0   Pass file path to processIncludeContents
  * 2015-08-04   v3.1.0   Support for non-utf8 encoding
  * 2015-02-05   v3.0.0   Better logging for missing source files
@@ -208,3 +209,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * 2013-04-26   v0.3.0   Added new option includesDir - if set all includes resolved relative to that directory
  * 2013-04-19   v0.2.0   Added option processIncludeContents - a function that allows you to alter included file contents
  * 2013-02-18   v0.1.0   Grunt 0.4.x support
+
+ ---
+
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
