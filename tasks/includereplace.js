@@ -5,6 +5,7 @@
  * Copyright (c) 2013 Alan Shaw
  * Licensed under the MIT license.
  */
+
 module.exports = function (grunt) {
   var path = require('path')
 
@@ -205,6 +206,6 @@ module.exports = function (grunt) {
   })
 
   function isString (obj) {
-    return Object.prototype.toString.call(obj) === '[object String]'
+    return grunt.util.kindOf(obj) === 'string'
   }
 }
