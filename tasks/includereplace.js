@@ -190,7 +190,7 @@ module.exports = function (grunt) {
 
         var dest = config.dest
 
-        if (isDirectory(dest) && !config.orig.cwd) {
+        if (grunt.file.isDir(dest) && !config.orig.cwd) {
           dest = path.join(dest, src)
         }
 
@@ -205,10 +205,5 @@ module.exports = function (grunt) {
 
   function isString (obj) {
     return Object.prototype.toString.call(obj) === '[object String]'
-  }
-
-  // Detect if destination path is a directory
-  function isDirectory (dest) {
-    return isString(dest) && dest[dest.length - 1] === '/'
   }
 }
