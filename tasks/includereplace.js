@@ -145,6 +145,7 @@ module.exports = function (grunt) {
       return contents
     }
 
+    var count = 0
     this.files.forEach(function (config) {
       // Warn if source files aren't found
       config.orig.src.forEach(function (src) {
@@ -170,7 +171,7 @@ module.exports = function (grunt) {
           return grunt.log.warn('Ignoring non file matching glob', src)
         }
 
-        grunt.log.ok('Processing ' + src)
+        grunt.verbose.ok('Processing ' + src)
 
         // Read file
         var contents = grunt.file.read(src)
@@ -186,21 +187,21 @@ module.exports = function (grunt) {
         // Process includes
         contents = include(contents, path.dirname(src))
 
-        // grunt.log.debug(contents)
-
         var dest = config.dest
 
         if (grunt.file.isDir(dest) && !config.orig.cwd) {
           dest = path.join(dest, src)
         }
 
+        count++
         grunt.log.debug('Saving to', dest)
 
         grunt.file.write(dest, contents)
 
-        grunt.log.ok('Processed ' + src)
+        grunt.verbose.ok('Processed ' + src)
       })
     })
+    grunt.log.writeln('Processed ' + count + ' ' + grunt.util.pluralize(count, 'file/files'))
   })
 
   function isString (obj) {
