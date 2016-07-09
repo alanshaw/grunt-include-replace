@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 
     grunt.log.debug('Options', options)
 
-    // Preset default encofing as early as possible
+    // Preset default encoding as early as possible
     grunt.file.defaultEncoding = options.encoding
 
     // Variables available in ALL files
