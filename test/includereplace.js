@@ -43,8 +43,8 @@ exports.suite = {
 
     expectations.forEach(function (expectation) {
       test.equal(
-        fs.readFileSync('test/expected/' + expectation, 'utf-8'),
-        fs.readFileSync('dist/' + expectation, 'utf-8')
+        fs.readFileSync('test/expected/' + expectation, 'utf-8').replace(/\r\n/g, '\n'),
+        fs.readFileSync('dist/' + expectation, 'utf-8').replace(/\r\n/g, '\n')
       )
     })
 
