@@ -195,6 +195,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+ * 2016-08-08   v5.0.0   Less verbose output
  * 2016-04-06   v4.0.0   Grunt 1.x support
  * 2015-08-28   v3.2.0   Pass file path to processIncludeContents
  * 2015-08-04   v3.1.0   Support for non-utf8 encoding
