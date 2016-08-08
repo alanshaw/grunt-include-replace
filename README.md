@@ -71,43 +71,43 @@ grunt.initConfig({
 
 #### options.globals
 Type: `Object`  
-Default value: `{}`
+Default: `{}`
 
 Global variables available for replacement in all files.
 
 #### options.prefix
 Type: `String`  
-Default value: `@@`
+Default: `@@`
 
 Variable/include directive prefix. Careful when changing as it is added to the regular expression used for finding variables to be replaced.
 
 #### options.suffix
 Type: `String`  
-Default value: ``
+Default: `''`
 
 Variable/include directive suffix. Careful when changing as it is added to the regular expression used for finding variables to be replaced.
 
 #### options.includesDir
 Type: `String`  
-Default value: Relative to including file
+Default: Relative to including file
 
 Directory where includes will be resolved.
 
 #### options.docroot
 Type: `String`  
-Default value: `.`
+Default: `.`
 
 `@@docroot` is a magic local variable that contains the relative path from the file that uses it to the path specified.
 
 #### options.encoding
 Type: `String`  
-Default value: `utf-8`
+Default: `utf-8`
 
 Encoding files are using.
 
 #### options.processIncludeContents
 Type: `Function`  
-Default value: undefined
+Default: `undefined`
 
 A function called for every included file prior to processing by `grunt-include-replace`. It is passed the include file contents, local variables and the file path as parameters and should return the (possibly altered) file contents.
 

@@ -7,18 +7,18 @@
   "homepage": "https://github.com/alanshaw/grunt-include-replace",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alanshaw/grunt-include-replace.git"
+    "url": "git+https://github.com/alanshaw/grunt-include-replace.git"
   },
   "bugs": {
     "url": "https://github.com/alanshaw/grunt-include-replace/issues"
   },
   "files": [
-    "tasks",
-    "LICENCE-MIT"
+    "tasks"
   ],
   "scripts": {
     "test": "standard && grunt"
   },
+  "main": "tasks/includereplace.js",
   "keywords": [
     "gruntplugin",
     "include",
@@ -33,13 +33,13 @@
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-nodeunit": "^1.0.0",
-    "standard": "^6.0.8"
+    "standard": "^7.1.2"
   },
   "peerDependencies": {
     "grunt": "~0.4.4 || ^1.0.1"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   },
   "standard": {
     "ignore": [
