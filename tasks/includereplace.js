@@ -16,7 +16,8 @@ module.exports = function (grunt) {
       globals: {},
       includesDir: '',
       docroot: '.',
-      encoding: 'utf-8'
+      encoding: 'utf-8',
+      ignoreLocalVars: false
     })
 
     grunt.log.debug('Options', options)
@@ -113,7 +114,13 @@ module.exports = function (grunt) {
       while (matches) {
         var match = matches[0]
         var includePath = matches[1]
-        var localVars = matches[3] ? JSON.parse(matches[3]) : {}
+        var localVars
+
+        if (!options.ignoreLocalVars) {
+          localVars = matches[3] ? JSON.parse(matches[3]) : {}
+        } else {
+          localVars = {}
+        }
 
         if (!grunt.file.isPathAbsolute(includePath)) {
           includePath = path.resolve(path.join((options.includesDir ? options.includesDir : workingDir), includePath))

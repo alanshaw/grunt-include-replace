@@ -111,6 +111,12 @@ Default: `undefined`
 
 A function called for every included file prior to processing by `grunt-include-replace`. It is passed the include file contents, local variables and the file path as parameters and should return the (possibly altered) file contents.
 
+#### options.ignoreLocalVars
+Type: `Boolean`  
+Default: false
+
+Ignore parsing local variables within `include` expression while replacing. This is because that sometimes we don't know the values of local variables, and the template shall be used later with other template engine/method
+
 ### Usage Examples
 
 #### Default Options
