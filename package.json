@@ -1,6 +1,6 @@
 {
   "name": "grunt-include-replace",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "Grunt task to include files and replace variables. Allows for parameterised includes.",
   "author": "Alan Shaw <alan138@gmail.com>",
   "license": "MIT",
