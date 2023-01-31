@@ -84,7 +84,7 @@ module.exports = function (grunt) {
       }
 
       function getIncludeContents (includePath, localVars) {
-        var files = grunt.file.expand(includePath)
+        var files = grunt.file.expand( { windowsPathsNoEscape : (process.platform === 'win32') }, includePath)
         var includeContents = ''
 
         // If files is not an array of at least one element then bad
